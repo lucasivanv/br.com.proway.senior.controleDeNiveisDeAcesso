@@ -1,5 +1,6 @@
 package model.acesso;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.interfaces.InterfacePerfilDAO;
@@ -106,13 +107,63 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}
 	
 	/**
-	 * Método alterarInicioValidadePerfil
+	 * Método alterarInicioValidadePerfil.
 	 * 
-	 * Método 
+	 * Método procura um perfil, com base no seu id, e altera a sua data de início de validade.
+	 *
+	 * 
+	 * @param idDoPerfil Integer
+	 * @param novoInicioValidadePerfil LocalDate
+	 * @return PerfilModel
 	 */
+	public PerfilModel alterarInicioValidadePerfil(Integer idDoPerfil, LocalDate novoInicioValidadePerfil) {
+		PerfilModel perfilAlterado = this.buscarPerfil(idDoPerfil);
+		
+		if(perfilAlterado != null) {
+			perfilAlterado.setInicioValidadePerfil(novoInicioValidadePerfil);
+			return perfilAlterado;
+		}
+		return null;	
+	}
 	
 	/**
+	 * Método alterarFimValidadePerfil.
 	 * 
+	 * Método procura um perfil, com base no seu id, e altera a sua data de fim de validade.
+	 *
+	 * 
+	 * @param idDoPerfil Integer
+	 * @param novoFimValidadePerfil LocalDate
+	 * @return PerfilModel
 	 */
-
+	public PerfilModel alterarFimValidadePerfil(Integer idDoPerfil, LocalDate novoFimValidadePerfil) {
+		PerfilModel perfilAlterado = this.buscarPerfil(idDoPerfil);
+		
+		if(perfilAlterado != null) {
+			perfilAlterado.setFimValidadePerfil(novoFimValidadePerfil);
+			return perfilAlterado;
+		}
+		return null;	
+	}
+	
+	/**
+	 * Método alterarPerfilAtivo.
+	 * 
+	 * Método procura um perfil, com base no seu id, e altera o seu estado de ativo
+	 *
+	 * 
+	 * @param idDoPerfil Integer
+	 * @param novoEstadoAtivo boolean
+	 * @return PerfilModel
+	 */
+	public PerfilModel alterarPerfilAtivo(Integer idDoPerfil, boolean novoEstadoAtivo) {
+		PerfilModel perfilAlterado = this.buscarPerfil(idDoPerfil);
+		
+		if(perfilAlterado != null) {
+			perfilAlterado.setPerfilAtivo(novoEstadoAtivo);
+			return perfilAlterado;
+		}
+		return null;	
+	}
+	
 }

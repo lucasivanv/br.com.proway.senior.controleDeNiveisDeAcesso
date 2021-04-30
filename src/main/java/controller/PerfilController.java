@@ -1,5 +1,6 @@
 package controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.acesso.PerfilDAO;
@@ -69,7 +70,7 @@ public class PerfilController {
 	}
 
 	/**
-	 * Método alterarPerfilController
+	 * Método alterarNomePerfilController
 	 * 
 	 * Método realiza a alteração do nome de um perfil conforme id informado
 	 * 
@@ -81,6 +82,45 @@ public class PerfilController {
 		dao.alterarNomePerfil(idDoPerfil, novoNomePerfil);
 	}
 
+	/**
+	 * Método alterarFimValidadePerfilController
+	 * 
+	 * Método realiza a alteração da data de fim da validade de um perfil conforme id informado
+	 * 
+	 * @param idDoPerfil     Integer
+	 * @param novaDataFimValidade LocalDate
+	 * @return void
+	 */
+	public void alterarFimValidadePerfilController(Integer idDoPerfil, LocalDate novaDataFimValidade) {
+		dao.alterarFimValidadePerfil(idDoPerfil, novaDataFimValidade);
+	}
+	
+	/**
+	 * Método alterarPerfilAtivoController
+	 * 
+	 * Método realiza a alteração do estado de atividade de um perfil conforme id informado
+	 * 
+	 * @param idDoPerfil     Integer
+	 * @param novoEstado boolean
+	 * @return void
+	 */
+	public void alterarPerfilAtivoController(Integer idDoPerfil, boolean novoEstado) {
+		dao.alterarPerfilAtivo(idDoPerfil, novoEstado);
+	}
+	
+	/**
+	 * Método alterarInicioValidadePerfilController
+	 * 
+	 * Método realiza a alteração da data de inicio da validade de um perfil conforme id informado
+	 * 
+	 * @param idDoPerfil     Integer
+	 * @param novaDataInicioValidade LocalDate
+	 * @return void
+	 */
+	public void alterarInicioValidadePerfilController(Integer idDoPerfil, LocalDate novaDataInicioValidade) {
+		dao.alterarInicioValidadePerfil(idDoPerfil, novaDataInicioValidade);
+	}
+	
 	/**
 	 * Método adicionarPermissaoEmUmPerfil
 	 * 

@@ -81,7 +81,7 @@ public class PerfilControllerTest {
 	}
 	
 	@Test
-	public void verificaSeOPerfilVazioFoiAlteradoDAO() {
+	public void verificaSeONomeDoPerfilVazioFoiAlterado() {
 		
 		PerfilController perfilController = new PerfilController();		
 		Integer idDoPerfil = 10;
@@ -95,6 +95,47 @@ public class PerfilControllerTest {
 		assertEquals(nomeDoPerfilNovo, perfilController.lerListaDePerfisCriados().get(0).getNomeDoPerfil());
 	}
 	
+	@Test
+	public void verificaSeADataInicioDoPerfilVazioFoiAlterada() {
+		
+		PerfilController perfilController = new PerfilController();		
+		Integer idDoPerfil = 10;
+		LocalDate data = LocalDate.of(2021, 2, 23);
+		
+		perfilController.criarPerfilVazioController(idDoPerfil, "RH");
+		
+		perfilController.alterarInicioValidadePerfilController(idDoPerfil, data);
+		
+		assertEquals(data, perfilController.lerListaDePerfisCriados().get(0).getInicioValidadePerfil());
+	}
+	
+	@Test
+	public void verificaSeADataFimDoPerfilVazioFoiAlterada() {
+		
+		PerfilController perfilController = new PerfilController();		
+		Integer idDoPerfil = 10;
+		LocalDate data = LocalDate.of(2021, 2, 23);
+		
+		perfilController.criarPerfilVazioController(idDoPerfil, "RH");
+		
+		perfilController.alterarFimValidadePerfilController(idDoPerfil, data);
+		
+		assertEquals(data, perfilController.lerListaDePerfisCriados().get(0).getFimValidadePerfil());
+	}
+	
+	@Test
+	public void verificaSeOEstadoDeAtividadeDoPerfilVazioFoiAlterado() {
+		
+		PerfilController perfilController = new PerfilController();		
+		Integer idDoPerfil = 10;
+		boolean novoEstado = false;
+		
+		perfilController.criarPerfilVazioController(idDoPerfil, "RH");
+		
+		perfilController.alterarPerfilAtivoController(idDoPerfil, novoEstado);
+		
+		assertEquals(novoEstado, perfilController.lerListaDePerfisCriados().get(0).isPerfilAtivo());
+	}
 	
 	@Test
 	public void verificaSeUmaPermissaoEhAtribuidaAUmPerfil() {

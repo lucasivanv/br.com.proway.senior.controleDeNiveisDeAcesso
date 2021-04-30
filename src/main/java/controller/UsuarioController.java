@@ -70,6 +70,10 @@ public class UsuarioController implements InterfaceUsuarioController {
 		}
 		return senhaValida;
 	}
+	
+	public boolean verificarSenha(String senha) {
+		
+	}
 
 	/**
 	 * Envia um e-mail

@@ -2,6 +2,8 @@ package model.acesso;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 /**
@@ -59,7 +61,7 @@ public class PerfilDAOTest {
 	}
 	
 	@Test
-	public void verificaSeOPerfilVazioFoiAlteradoDAO() {
+	public void verificaSeONomeDoPerfilVazioFoiAlteradoDAO() {
 		PerfilDAO perfilDAO = new PerfilDAO();
 		
 		Integer idDoPerfil = 10;
@@ -72,6 +74,36 @@ public class PerfilDAOTest {
 		assertEquals(nomeDoPerfilNovo, perfilAlterado.getNomeDoPerfil());
 		
 		
+	}
+	
+	@Test
+	public void verificaSeADataDeInicioDoPerfilFoiAlteradaDAO() {
+		PerfilDAO perfilDAO = new PerfilDAO();
+		Integer idDoPerfil = 1;
+		LocalDate data = LocalDate.of(2020, 3, 16);
+		perfilDAO.criarPerfilVazio(idDoPerfil, "RH");
+		PerfilModel perfilAlterado = perfilDAO.alterarInicioValidadePerfil(idDoPerfil, data);
+		assertEquals(data, perfilAlterado.getInicioValidadePerfil());
+	}
+	
+	@Test
+	public void verificaSeADataDeFimDoPerfilFoiAlteradaDAO() {
+		PerfilDAO perfilDAO = new PerfilDAO();
+		Integer idDoPerfil = 1;
+		LocalDate data = LocalDate.of(2020, 3, 16);
+		perfilDAO.criarPerfilVazio(idDoPerfil, "RH");
+		PerfilModel perfilAlterado = perfilDAO.alterarFimValidadePerfil(idDoPerfil, data);
+		assertEquals(data, perfilAlterado.getFimValidadePerfil());
+	}
+	
+	@Test
+	public void verificaSeOEstadoDeAtividadeDoPerfilFoiAlteradoDAO() {
+		PerfilDAO perfilDAO = new PerfilDAO();
+		Integer idDoPerfil = 1;
+		boolean estadoPerfil = true;
+		perfilDAO.criarPerfilVazio(idDoPerfil, "RH");
+		PerfilModel perfilAlterado = perfilDAO.alterarPerfilAtivo(idDoPerfil, estadoPerfil);
+		assertEquals(estadoPerfil, perfilAlterado.isPerfilAtivo());
 	}
 	
 }
