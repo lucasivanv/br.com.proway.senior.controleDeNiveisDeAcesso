@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import model.acesso.HashSenha;
 import model.acesso.PerfilModel;
 import model.acesso.UsuarioModel;
 import model.acesso.UsuarioDAO;
@@ -55,7 +56,7 @@ public class UsuarioController implements InterfaceUsuarioController {
 	 * Verifica se a senha corresponde aos pre requisitos da expressao. 
 	 *
 	 * @param String senha
-	 * @return senhaValida
+	 * @return boolean
 	 */
 	
 	public boolean validarSenha(String senha) {
@@ -71,8 +72,28 @@ public class UsuarioController implements InterfaceUsuarioController {
 		return senhaValida;
 	}
 	
-	public boolean verificarSenha(String senha) {
-		
+	/**
+	 * Recebe a String correspondente à senha real do usuário e retorna o valor codificado (hash) dessa senha.
+	 * 
+	 * @param senha String
+	 * @return String 
+	 */
+	public String converterSenhaEmHashSenha(String senha) {
+		return HashSenha.senhaDoUsuario(senha);
+	}
+	
+	/**
+	 * Compara a hash da senha fornecida pelo usuário com a hash salva.
+	 * 
+	 * @param usuarioID Integer
+	 * @param senha String
+	 * @return boolean
+	 */
+	public boolean verificarHashSenha(Integer usuarioID, String senha) {		
+		if(this.converterSenhaEmHashSenha(senha).equals(daoUsuario.get(usuarioID).getHashSenhaDoUsuario())) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -84,7 +105,6 @@ public class UsuarioController implements InterfaceUsuarioController {
 	 * @param email        Email do usuário
 	 * @param codigoGerado Código aleatório gerado pelo sistema
 	 */
-	
 	public String enviarEmail(String loginDoUsuario) {
 		
 		String codigo = "" + this.gerarCodigo();
@@ -98,17 +118,23 @@ public class UsuarioController implements InterfaceUsuarioController {
 	/**
 	 * Método que altera a senha do usuario
 	 * 
+	 * Verifica se a nova senha atende os critérios de senha segura e se a nova senha é diferente da senha atual.
 	 * Recebe id e nova senha para alterar
 	 * 
 	 * @param int id do usuario procurado para alteraçao
 	 * @param String senhaNova do usuario
 	 */
-	public void alteraSenha(int id, String senhaNova) {
-		
+	public boolean alteraSenha(int id, String senhaNova) {
 		UsuarioModel usuarioEscolhido = daoUsuario.get(id);
-		
-		usuarioEscolhido.setSenha(senhaNova);
-		daoUsuario.update(usuarioEscolhido);
+		if(this.validarSenha(senhaNova)) {
+			String senhaHash = this.converterSenhaEmHashSenha(senhaNova);
+			if(!usuarioEscolhido.getHashSenhaDoUsuario().equals(senhaHash)) {
+				usuarioEscolhido.setHashSenhaDoUsuario(senhaHash);
+				daoUsuario.update(usuarioEscolhido);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -122,7 +148,7 @@ public class UsuarioController implements InterfaceUsuarioController {
 	public void alteraLogin(int id, String loginNovo) {
 		
 		UsuarioModel usuarioEscolhido = daoUsuario.get(id);
-		usuarioEscolhido.setLogin(loginNovo);
+		usuarioEscolhido.setLoginDoUsuario(loginNovo);
 		daoUsuario.update(usuarioEscolhido);
 	}
 	

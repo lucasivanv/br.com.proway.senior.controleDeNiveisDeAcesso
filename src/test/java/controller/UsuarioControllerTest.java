@@ -27,78 +27,80 @@ public class UsuarioControllerTest {
 	public void testeSeEmailValido() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setLogin("vitorperes1104@gmail.com");
-		assertTrue(userControl.validarEmail(user.getLogin()));
+		user.setLoginDoUsuario("vitorperes1104@gmail.com");
+		assertTrue(userControl.validarEmail(user.getLoginDoUsuario()));
 	}
 
 	@Test
 	public void testeSeEmailInvalido() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setLogin("vitorperes110gmail.com");
-		assertFalse(userControl.validarEmail(user.getLogin()));
+		user.setLoginDoUsuario("vitorperes110gmail.com");
+		assertFalse(userControl.validarEmail(user.getLoginDoUsuario()));
 	}
 
 	@Test
 	public void testeSeEmailVazio() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setLogin("");
-		assertFalse(userControl.validarEmail(user.getLogin()));
+		user.setLoginDoUsuario("");
+		assertFalse(userControl.validarEmail(user.getLoginDoUsuario()));
 	}
 
 	@Test
 	public void testeSeSenhaValida() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setSenha("1Vaaaa");
-		assertTrue(userControl.validarSenha(user.getSenha()));
+		user.setHashSenhaDoUsuario("1Vaaaa");
+		assertTrue(userControl.validarSenha(user.getHashSenhaDoUsuario()));
 	}
 
 	@Test
 	public void testeSeSenhaInvalida() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setSenha("123124321");
-		assertFalse(userControl.validarSenha(user.getSenha()));
+		user.setHashSenhaDoUsuario("123124321");
+		assertFalse(userControl.validarSenha(user.getHashSenhaDoUsuario()));
 	}
 
 	@Test
 	public void testeSeSenhaMenor() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setSenha("1Pa");
-		assertFalse(userControl.validarSenha(user.getSenha()));
+		user.setHashSenhaDoUsuario("1Pa");
+		assertFalse(userControl.validarSenha(user.getHashSenhaDoUsuario()));
 	}
 
 	@Test
 	public void testeSeSenhaMaior() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setSenha("1Pa124126124131364346413523342433244143143131413311");
-		assertFalse(userControl.validarSenha(user.getSenha()));
+		user.setHashSenhaDoUsuario("1Pa124126124131364346413523342433244143143131413311");
+		assertFalse(userControl.validarSenha(user.getHashSenhaDoUsuario()));
 	}
 
 	@Test
-	public void testeAlteraSenha() {
+	public void testeAlteraSenhaComSenhaAnteriorNula() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setSenha("1Pabcde");
-		user.setId(0);
-		userControl.daoUsuario.user.add(user);
-		userControl.alteraSenha(0, "2Cabasde");
-		assertEquals("2Cabasde", userControl.daoUsuario.get(0).getSenha());
+		user.setIdDoUsuario(0);
+		user.setHashSenhaDoUsuario("");
+		userControl.daoUsuario.create(user);
+		userControl.alteraSenha(user.getIdDoUsuario(), "1Pabcde");
+		assertEquals("6d84bd7f79f63cc7f2f519547d5837d3920bbcf42db70"
+				+ "b4cd5bb0f22775b4d897ce9faefef9ad37aeee7e1320c0f0"
+				+ "fa5dcb0232eac6619213fc78d5e44808c48", user.getHashSenhaDoUsuario());
 	}
 
 	@Test
 	public void testeAlteraLogin() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setLogin("vitorperes1104@gmail.com");
-		user.setId(0);
+		user.setLoginDoUsuario("vitorperes1104@gmail.com");
+		user.setIdDoUsuario(0);
 		userControl.daoUsuario.user.add(user);
 		userControl.alteraLogin(0, "dwillian676@gmail.com");
-		assertEquals("dwillian676@gmail.com", userControl.daoUsuario.get(0).getLogin());
+		assertEquals("dwillian676@gmail.com", userControl.daoUsuario.get(0).getLoginDoUsuario());
 	}
 
 	@Test
@@ -157,7 +159,7 @@ public class UsuarioControllerTest {
 		userControl.daoUsuario.user.add(userDois);
 		userControl.daoUsuario.remove(0);
 	
-		assertEquals(1, userControl.daoUsuario.user.get(0).getId());
+		assertEquals(1, userControl.daoUsuario.user.get(0).getIdDoUsuario());
 	}
 
 }

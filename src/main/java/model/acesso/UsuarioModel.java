@@ -6,30 +6,31 @@ public class UsuarioModel {
 
 	private int idDoUsuario;
 	private String loginDoUsuario;
-	private String senhaDoUsuario;
+	private String hashSenhaDoUsuario;
 	private ArrayList<PerfilModel> listaDePerfisDoUsuario = new ArrayList<PerfilModel>();
 
-	public UsuarioModel() {
-	}
-
-	public UsuarioModel(int idDoUsuario, String loginDoUsuario, String senhaDoUsuario,
+	public UsuarioModel(int idDoUsuario, String loginDoUsuario, String hashSenhaDoUsuario,
 			ArrayList<PerfilModel> listaDePerfisDoUsuario) {
 		super();
 		this.idDoUsuario = idDoUsuario;
 		this.loginDoUsuario = loginDoUsuario;
-		this.senhaDoUsuario = senhaDoUsuario;
+		this.hashSenhaDoUsuario = hashSenhaDoUsuario;
 		this.listaDePerfisDoUsuario = listaDePerfisDoUsuario;
+	}
+	
+	public UsuarioModel() {
+		 
 	}
 
 	public ArrayList<PerfilModel> getListaDePerfisDoUsuario() {
 		return listaDePerfisDoUsuario;
 	}
 
-	public int getId() {
+	public int getIdDoUsuario() {
 		return idDoUsuario;
 	}
 
-	public void setId(int id) {
+	public void setIdDoUsuario(int id) {
 		this.idDoUsuario = id;
 	}	
 
@@ -37,19 +38,19 @@ public class UsuarioModel {
 		this.listaDePerfisDoUsuario = listaDePerfisDoUsuario;
 	}
 
-	public String getLogin() {
+	public String getLoginDoUsuario() {
 		return loginDoUsuario;
 	}
 
-	public void setLogin(String login) {
+	public void setLoginDoUsuario(String login) {
 		this.loginDoUsuario = login;
 	}
 
-	public String getSenha() {
-		return senhaDoUsuario;
+	public String getHashSenhaDoUsuario() {
+		return hashSenhaDoUsuario;
 	}
 
-	public void setSenha(String senha) {
-		this.senhaDoUsuario = senha;
+	public void setHashSenhaDoUsuario(String senha) {
+		this.hashSenhaDoUsuario = senha;
 	}
 }

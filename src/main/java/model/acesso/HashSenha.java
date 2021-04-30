@@ -12,7 +12,7 @@ public class HashSenha {
 	 * 
 	 * Neste método esta sendo utilizado uma API do java "BigInteger" para gerar um algoritmo
 	 * para realizar a HASH da senha utilizando criptografia SHA-512.
-	 * 
+	 *
 	 * @param String senha
 	 * @return valorCodificado
 	 */

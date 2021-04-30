@@ -25,11 +25,11 @@ public class UsuarioDAOTest {
 		
 		UsuarioDAO userDAO = new UsuarioDAO();
 		UsuarioModel usuario = new UsuarioModel();
-		usuario.setId(0);
-		usuario.setLogin("vitorperes1104@gmail.com");
+		usuario.setIdDoUsuario(0);
+		usuario.setLoginDoUsuario("vitorperes1104@gmail.com");
 		userDAO.create(usuario);
 		
-		assertEquals("vitorperes1104@gmail.com", userDAO.user.get(0).getLogin());
+		assertEquals("vitorperes1104@gmail.com", userDAO.user.get(0).getLoginDoUsuario());
 		
 	}
 	
@@ -37,12 +37,12 @@ public class UsuarioDAOTest {
 	public void testGetUsuario() {
 		UsuarioDAO userDAO = new UsuarioDAO();
 		UsuarioModel usuario = new UsuarioModel();
-		usuario.setId(0);
-		usuario.setLogin("vitorperes1104@gmail.com");
+		usuario.setIdDoUsuario(0);
+		usuario.setLoginDoUsuario("vitorperes1104@gmail.com");
 		userDAO.create(usuario);
 		UsuarioModel userTest = userDAO.get(0);
 		
-		assertEquals("vitorperes1104@gmail.com", userTest.getLogin());
+		assertEquals("vitorperes1104@gmail.com", userTest.getLoginDoUsuario());
 		
 	}
 	
@@ -50,12 +50,12 @@ public class UsuarioDAOTest {
 	public void testUpdateUsuario() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel usuario = new UsuarioModel();
-		usuario.setId(0);
-		usuario.setLogin("Teste");
+		usuario.setIdDoUsuario(0);
+		usuario.setLoginDoUsuario("Teste");
 		userControl.daoUsuario.create(usuario);
-		usuario.setLogin("Teste usuario atualizado");
+		usuario.setLoginDoUsuario("Teste usuario atualizado");
 		userControl.daoUsuario.update(usuario);
-		assertEquals("Teste usuario atualizado", userControl.daoUsuario.user.get(0).getLogin());
+		assertEquals("Teste usuario atualizado", userControl.daoUsuario.user.get(0).getLoginDoUsuario());
 	}
 	
 	@Test
@@ -76,8 +76,8 @@ public class UsuarioDAOTest {
 		userControl.daoUsuario.user.add(userUm);
 		userControl.daoUsuario.user.add(userDois);
 		ArrayList<UsuarioModel> arrayUsuariosTest = userControl.daoUsuario.getAll();
-		assertEquals("vcperes@furb.br", arrayUsuariosTest.get(0).getLogin());
-		assertEquals("vitorperes1104@gmail.com", arrayUsuariosTest.get(1).getLogin());
+		assertEquals("vcperes@furb.br", arrayUsuariosTest.get(0).getLoginDoUsuario());
+		assertEquals("vitorperes1104@gmail.com", arrayUsuariosTest.get(1).getLoginDoUsuario());
 	}
 	
 	@Test
@@ -99,7 +99,7 @@ public class UsuarioDAOTest {
 		userControl.daoUsuario.user.add(userDois);
 		userControl.daoUsuario.remove(0);
 	
-		assertEquals(1, userControl.daoUsuario.user.get(0).getId());
+		assertEquals(1, userControl.daoUsuario.user.get(0).getIdDoUsuario());
 	}
 
 

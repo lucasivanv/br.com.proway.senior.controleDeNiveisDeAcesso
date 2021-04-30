@@ -37,7 +37,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	 */
 	public UsuarioModel get(int id) {
 		for (int i = 0; i < this.user.size(); i++) {
-			if (this.user.get(i).getId() == id) {
+			if (this.user.get(i).getIdDoUsuario() == id) {
 				return this.user.get(i);
 
 			}
@@ -52,7 +52,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	 * @return Boolean true apos atualizacao
 	 */
 	public boolean update(UsuarioModel usuarioAtualizado) {
-		user.set(usuarioAtualizado.getId(), usuarioAtualizado);
+		user.set(usuarioAtualizado.getIdDoUsuario(), usuarioAtualizado);
 		return true;
 	}
 
@@ -74,7 +74,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	 */
 	public void remove(int id) {
 		for (int i =0; i< user.size();i++) {
-			if(user.get(i).getId() == id) {
+			if(user.get(i).getIdDoUsuario() == id) {
 				user.remove(i);
 			}
 		}
