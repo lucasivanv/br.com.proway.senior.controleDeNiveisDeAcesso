@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import controller.UsuarioController;
+import model.acesso.HashSenha;
 import model.acesso.PerfilModel;
 import model.acesso.PermissaoModel;
 import model.acesso.UsuarioModel;
@@ -22,6 +23,19 @@ import model.acesso.UsuarioModel;
  * 
  */
 public class UsuarioControllerTest {
+	
+	@Test
+	public void testeCriarNovoUsuario() {
+		UsuarioController userControl = new UsuarioController();
+		String senha = "Aa12345678/";
+		UsuarioModel um = userControl.criarUsuarioModel(0, "abc@test.com.br", senha);
+		assertEquals(um.getHashSenhaDoUsuario(), "ac28bd3afad70aa"
+				+ "d355697ac144f1f90786f8de54cd5336aeffec2b6940"
+				+ "fe9171d5a9fe776f98c188d0e28c1dfbfa6cae54d0"
+				+ "c97473c3d57a21b358aaf5d15ec");
+		assertEquals(um.getIdDoUsuario(), 0);
+		assertEquals(um.getLoginDoUsuario(), "abc@test.com.br");
+	}
 
 	@Test
 	public void testeSeEmailValido() {
@@ -50,33 +64,25 @@ public class UsuarioControllerTest {
 	@Test
 	public void testeSeSenhaValida() {
 		UsuarioController userControl = new UsuarioController();
-		UsuarioModel user = new UsuarioModel();
-		user.setHashSenhaDoUsuario("1Vaaaa");
-		assertTrue(userControl.validarSenha(user.getHashSenhaDoUsuario()));
+		assertTrue(userControl.validarSenha("1Vaaaa"));
 	}
 
 	@Test
 	public void testeSeSenhaInvalida() {
 		UsuarioController userControl = new UsuarioController();
-		UsuarioModel user = new UsuarioModel();
-		user.setHashSenhaDoUsuario("123124321");
-		assertFalse(userControl.validarSenha(user.getHashSenhaDoUsuario()));
+		assertFalse(userControl.validarSenha("123124321"));
 	}
 
 	@Test
 	public void testeSeSenhaMenor() {
 		UsuarioController userControl = new UsuarioController();
-		UsuarioModel user = new UsuarioModel();
-		user.setHashSenhaDoUsuario("1Pa");
-		assertFalse(userControl.validarSenha(user.getHashSenhaDoUsuario()));
+		assertFalse(userControl.validarSenha("1Pa"));
 	}
 
 	@Test
 	public void testeSeSenhaMaior() {
 		UsuarioController userControl = new UsuarioController();
-		UsuarioModel user = new UsuarioModel();
-		user.setHashSenhaDoUsuario("1Pa124126124131364346413523342433244143143131413311");
-		assertFalse(userControl.validarSenha(user.getHashSenhaDoUsuario()));
+		assertFalse(userControl.validarSenha("1Pa124126124131364346413523342433244143143131413311"));
 	}
 
 	@Test
