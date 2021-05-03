@@ -1,7 +1,11 @@
 package model.acesso;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import db.DBConnection;
 import model.interfaces.InterfacePermissaoDAO;
 
 /**
@@ -15,6 +19,12 @@ import model.interfaces.InterfacePermissaoDAO;
  */
 
 public class PermissaoDAO implements InterfacePermissaoDAO {
+	
+	public DBConnection db;
+	
+	public PermissaoDAO() {
+		db = DBConnection.getInstance();
+	}
 
 	private ArrayList<PermissaoModel> listaDePermissoesCriadas = new ArrayList<PermissaoModel>();
 
@@ -22,19 +32,22 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	 * Método criarPermissao
 	 * 
 	 * Método responsável por inserir uma permissao no banco de dados conforme
-	 * atribuitos associadados
+	 * atributos associados
 	 * 
-	 * @param idDaPermissao Integer
 	 * @param nomeDaPermissao String
-	 * @return PermissaoModel 
+	 * @return boolean 
 	 * 
 	 */
-	public PermissaoModel criarPermissao(Integer idDaPermissao, String nomeDaPermissao) {
-		PermissaoModel permissaoModel = new PermissaoModel(idDaPermissao, nomeDaPermissao);
-
-		listaDePermissoesCriadas.add(permissaoModel);
-
-		return permissaoModel;
+	public boolean criarPermissao(String nomeDaPermissao) {
+		String insertPermissao = "INSERT INTO tb_permissao_dados(nome) values('" + nomeDaPermissao +"');";
+		
+		try {
+			db.executeUpdate(insertPermissao);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}		
 	}
 
 	/**
@@ -48,31 +61,92 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	 * 
 	 */
 	public boolean deletarPermissao(Integer idDaPermissao) {
-		PermissaoModel permissaoEscolhida = this.buscarPermissao(idDaPermissao);
-		if (permissaoEscolhida != null) {
-			listaDePermissoesCriadas.remove(permissaoEscolhida);
+		String deletarPermissao = "DELETE from tb_permissao_dados where idpermissao="+ idDaPermissao+";";
+		try {
+			db.executeUpdate(deletarPermissao);
 			return true;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	/**
 	 * Método buscarPermissao
 	 * 
-	 * Método responsável por buscar, através do id, uma permissão dentro de uma
-	 * lista de Permissoes. Se a permissao existe, retorna a mesma. Se não, retorna
-	 * nulo.
+	 * Método responsável por buscar, através do id, uma permissão dentro do banco de dados. 
+	 * Se a permissao existe, retorna a mesma. Se não, retorna nulo.
 	 * 
 	 * @param idDaPermissao Integer
 	 * @return PermissaoModel
 	 */
 	public PermissaoModel buscarPermissao(Integer idDaPermissao) {
-		for (PermissaoModel permissaoModel : listaDePermissoesCriadas) {
-			if (permissaoModel.getIdDaPermissao() == idDaPermissao) {
-				return permissaoModel;
+		ArrayList<String> resultado = new ArrayList<String>();
+		String selecionarPermissao = "SELECT * from tb_permissao_dados where idpermissao="+ idDaPermissao+";";
+		try {
+			ResultSet rs = db.executeQuery(selecionarPermissao);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int totalColunas = rsmd.getColumnCount();
+			if(rs.next()) {
+				for (int i = 1; i <= totalColunas; i ++) {
+					resultado.add(rs.getString(i));
+				}
 			}
+			return new PermissaoModel(Integer.parseInt(resultado.get(0)), resultado.get(1));
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
-		return null;
+	}
+	
+	/**
+	 * Método buscarTodasAsPermissões.
+	 * 
+	 * Método responsável por buscar todas as permissões dentro do banco de dados. 
+	 * 
+	 * @param idDaPermissao Integer
+	 * @return PermissaoModel
+	 */
+	public ArrayList<PermissaoModel> buscarTodasAsPermissões() {
+		ArrayList<PermissaoModel> resultado = new ArrayList<PermissaoModel>();
+		String selecionarPermissao = "SELECT * from tb_permissao_dados;";
+		try {
+			ResultSet rs = db.executeQuery(selecionarPermissao);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int totalColunas = rsmd.getColumnCount();
+			while(rs.next()) {
+				ArrayList<String> linha = new ArrayList<String>();
+				for (int i = 1; i <= totalColunas; i ++) {
+					linha.add(rs.getString(i));
+				}
+				PermissaoModel pm = new PermissaoModel(Integer.parseInt(linha.get(0)), linha.get(1));
+				resultado.add(pm);
+			}
+			return resultado;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Método updatePermissao.
+	 * 
+	 * Atualiza uma permissao no banco de dados.
+	 * @param idPermissao Integer
+	 * @param novaPermissao PermissaoModel
+	 * @return boolean
+	 */
+	public boolean atualizarPermissao(Integer idPermissao, PermissaoModel novaPermissao) {
+		String atualizar = "UPDATE tb_permissao_dados set nome='"+ 
+				novaPermissao.getNomeDaPermissao()+"' where idpermissao ="+idPermissao+";";
+		try {
+			db.executeUpdate(atualizar);
+			return true;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**
@@ -85,6 +159,10 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	public ArrayList<PermissaoModel> lerListaDePermissoesCriadas() {
 		return listaDePermissoesCriadas;
 	}
+	
+	/**
+	 * 
+	 */
 
 
 }

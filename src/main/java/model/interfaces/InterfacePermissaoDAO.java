@@ -10,7 +10,7 @@ import model.acesso.PermissaoModel;
 
 public interface InterfacePermissaoDAO {
 
-	public PermissaoModel criarPermissao(Integer idDaPermissao, String nomeDaPermissao);
+	public boolean criarPermissao(String nomeDaPermissao);
 	
 	public boolean deletarPermissao(Integer idDaPermissao);
 	
