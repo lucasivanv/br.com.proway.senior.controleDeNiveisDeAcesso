@@ -11,12 +11,12 @@ public class DBConnection {
 	static String url = "jdbc:postgresql://localhost:5432/grupo3";
 	static String user = "grupo3";
 	static String password = "grupo3";
-	static Connection con;
+	public static Connection con;
 	
 	static DBConnection dbConnection = null;
 	
 	private DBConnection () {
-		DBConnection.connect();
+		this.connect();
 	}
 	
 	public static DBConnection getInstance(){
@@ -26,7 +26,7 @@ public class DBConnection {
 		return dbConnection;
 	}
 
-	public static void connect() {
+	public void connect() {
 		try {
 			con = DriverManager.getConnection(url, user, password);
 		} catch(SQLException e) {
@@ -35,13 +35,26 @@ public class DBConnection {
 		
 	}
 	
-	public static ResultSet executeQuery(String query) throws SQLException {
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(query);
-		return rs;
+	public void executeUpdate(String query) throws SQLException {
+		try {
+			con.createStatement().executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static String dbVersion() {
+	public ResultSet executeQuery(String query) throws SQLException {
+		
+		try {
+			return con.createStatement().executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public String dbVersion() {
 		try {
 			if (con == null){
 				connect();
@@ -55,5 +68,7 @@ public class DBConnection {
 		}
 		return null;
 	}
+	
+	
 	
 }

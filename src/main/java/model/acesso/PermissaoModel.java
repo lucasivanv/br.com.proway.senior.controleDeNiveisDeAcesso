@@ -33,6 +33,10 @@ public class PermissaoModel {
 		this.nomeDaPermissao = nomeDaPermissao;
 	}
 	
+	public PermissaoModel(String nomeDaPermissao) {
+		this.nomeDaPermissao = nomeDaPermissao;
+	}
+	
 	@Override
 	public String toString() {
 		return "PermissaoModel [idDaPermissao=" + idDaPermissao + ", nomeDaPermissao=" + nomeDaPermissao + "]";

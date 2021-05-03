@@ -32,11 +32,12 @@ public class PermissaoController {
 	public boolean criarPermissaoController(Integer idDaPermissao, String nomeDaPermissao) {
 		
 		if (dao.lerListaDePermissoesCriadas().size() == 0) {
-			dao.criarPermissao(idDaPermissao, nomeDaPermissao);
+			dao.criarPermissao(nomeDaPermissao);
 			return true;
 		} else {
 			if (dao.buscarPermissao(idDaPermissao) == null) {
-				dao.criarPermissao(idDaPermissao, nomeDaPermissao);
+				
+				dao.criarPermissao(nomeDaPermissao);
 				return true;
 			} else {
 				return false;

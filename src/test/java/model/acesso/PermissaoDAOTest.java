@@ -2,6 +2,8 @@ package model.acesso;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import controller.PermissaoController;
@@ -12,6 +14,39 @@ import controller.PermissaoController;
  */
 
 public class PermissaoDAOTest {
+	
+	@Test
+	public void criarPermissaoNoBancoDeDados() {
+		PermissaoDAO permissaoDAO = new PermissaoDAO();
+		permissaoDAO.criarPermissao("Alterar dados");
+	}
+	
+	@Test
+	public void deletarPermissaoNoBancoDeDados() {
+		PermissaoDAO permissaoDAO = new PermissaoDAO();
+		permissaoDAO.deletarPermissao(1);
+	}
+	
+	@Test
+	public void buscarPermissaoNoBancoDeDados() {
+		PermissaoDAO permissaoDAO = new PermissaoDAO();
+		PermissaoModel pm = permissaoDAO.buscarPermissao(2);
+		System.out.println(pm.toString());
+	}
+	
+	@Test
+	public void buscarTodasAsPermissaoesNoBancoDeDados() {
+		PermissaoDAO permissaoDAO = new PermissaoDAO();
+		ArrayList<PermissaoModel> pm = permissaoDAO.buscarTodasAsPermissões();
+		System.out.println(pm.toString());
+	}
+	
+	@Test
+	public void atualizarPermissaoNoBancoDeDados() {
+		PermissaoDAO permissaoDAO = new PermissaoDAO();
+		PermissaoModel pm = new PermissaoModel("Deletar");
+		permissaoDAO.atualizarPermissao(2, pm);
+	}
 
 	@Test
 	public void verificaSeOcorreACriacaoDeUmaPermissaoDAO() {
