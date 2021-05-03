@@ -183,4 +183,22 @@ public class UsuarioController implements InterfaceUsuarioController {
 		}
 		return true;
 	}
+	
+	/**
+	 *  Cria um usuário.
+	 *  
+	 *  Recebe as informações de um usuário, transforma a senha em hash e cria um objeto UsuarioModel
+	 *  @param idDoUsuario int
+	 *  @param loginDoUsuario String
+	 *  @param senha String
+	 *  @return UsuarioModel
+	 */
+	
+	public UsuarioModel criarUsuarioModel(int idDoUsuario, String loginDoUsuario, String senha) {
+		if(!validarSenha(senha)) {
+			return null;
+		}
+		String hashSenha = HashSenha.senhaDoUsuario(senha);
+		return new UsuarioModel(idDoUsuario, loginDoUsuario, hashSenha, new ArrayList<PerfilModel>());
+	}
 }
