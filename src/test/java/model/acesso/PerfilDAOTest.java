@@ -14,6 +14,26 @@ import org.junit.Test;
 public class PerfilDAOTest {
 
 	@Test
+	public void testeCriacaoPerfilVazio() {
+		PerfilDAO perfilDAO = new PerfilDAO();
+		perfilDAO.criarPerfilVazio("RH");
+	}
+	
+	@Test
+	public void deletarPerfilNoBancoDeDados() {
+		PerfilDAO perfilDAO = new PerfilDAO();
+		perfilDAO.deletarPerfil(2);
+	}
+	
+	@Test
+	public void atualizarPerfilNoBancoDeDados() {
+		PerfilDAO perfilDAO = new PerfilDAO();
+		PerfilModel pm = new PerfilModel("Teste", LocalDate.of(2015,5,25), LocalDate.of(2022, 4, 13), true);
+		perfilDAO.atualizarPerfil(3, pm);
+	}
+	
+	
+	@Test
 	public void verificaSeOcorreACriacaoDeUmPerfilVazioDAO() {
 
 		PerfilDAO perfilDAO = new PerfilDAO();

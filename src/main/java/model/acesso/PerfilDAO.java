@@ -1,8 +1,11 @@
 package model.acesso;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import controller.ConverterDataDB;
+import db.DBConnection;
 import model.interfaces.InterfacePerfilDAO;
 
 /**
@@ -16,8 +19,14 @@ import model.interfaces.InterfacePerfilDAO;
  */
 
 public class PerfilDAO implements InterfacePerfilDAO{
-
+	
+	public DBConnection db;
+	
 	private ArrayList<PerfilModel> listaDePerfisCriados = new ArrayList<PerfilModel>();
+	
+	public PerfilDAO() {
+		db = DBConnection.getInstance();
+	}
 	
 	/**
 	 * Método criarPerfil
@@ -30,12 +39,21 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	 * @return PerfilModel 
 	 * 
 	 */
-	public PerfilModel criarPerfilVazio(Integer idDoPerfil, String nomeDoPerfil) {
-		PerfilModel perfilModel = new PerfilModel(idDoPerfil, nomeDoPerfil, new ArrayList<PermissaoModel>());
-		listaDePerfisCriados.add(perfilModel);	
-		return perfilModel;
+	public boolean criarPerfilVazio(String nomeDoPerfil) {
+		String insertPerfil = "INSERT INTO perfilTabela(nomePerfil, dataInicio, dataFim, status) "
+				+ "values('" + nomeDoPerfil +"', '" + 
+				LocalDate.of(1970, 1, 1).toString() + "', '" + 
+				LocalDate.of(2200, 1, 1).toString() + "', " + 
+				true + ");";
+		
+		try {
+			db.executeUpdate(insertPerfil);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}	
 	}
-
 	
 	/**
 	 * Método deletarPerfil
@@ -48,12 +66,37 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	 * 
 	 */
 	public boolean deletarPerfil(Integer idDoPerfil) {
-		PerfilModel perfilEscolhido = this.buscarPerfil(idDoPerfil);
-		if (perfilEscolhido != null) {
-			listaDePerfisCriados.remove(perfilEscolhido);
+		String deletarPerfil = "DELETE from perfilTabela where idPerfil="+ idDoPerfil+";";
+		try {
+			db.executeUpdate(deletarPerfil);
 			return true;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
-		return false;
+	}
+	
+	/**
+	 * Método atualizar
+	 * 
+	 * Método responsável por atualizar um perfil existente no banco de dados a partir do
+	 * id informado
+	 * 
+	 * @param idDoPerfil Integer
+	 * @return boolean
+	 * 
+	 */
+	public boolean atualizarPerfil(Integer idDoPerfil, PerfilModel perfil) {
+		String deletarPerfil = "UPDATE perfilTabela set nomeperfil= '" + perfil.getNomeDoPerfil()+ "', dataInicio='"
+				+ perfil.getInicioValidadePerfil().toString() + "', dataFim= '" + 
+				perfil.getFimValidadePerfil() + "', status= "+ perfil.isPerfilAtivo()+" where idPerfil="+ idDoPerfil+";";
+		try {
+			db.executeUpdate(deletarPerfil);
+			return true;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	/**

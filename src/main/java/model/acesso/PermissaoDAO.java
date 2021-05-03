@@ -39,8 +39,8 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	 * 
 	 */
 	public boolean criarPermissao(String nomeDaPermissao) {
-		String insertPermissao = "INSERT INTO tb_permissao_dados(nome) values('" + nomeDaPermissao +"');";
-		
+		String insertPermissao = "INSERT INTO permissoesTabela(nome) values('" + nomeDaPermissao +"');";
+	
 		try {
 			db.executeUpdate(insertPermissao);
 			return true;
@@ -61,7 +61,7 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	 * 
 	 */
 	public boolean deletarPermissao(Integer idDaPermissao) {
-		String deletarPermissao = "DELETE from tb_permissao_dados where idpermissao="+ idDaPermissao+";";
+		String deletarPermissao = "DELETE from permissoesTabela where idPermissao="+ idDaPermissao+";";
 		try {
 			db.executeUpdate(deletarPermissao);
 			return true;
@@ -82,7 +82,7 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	 */
 	public PermissaoModel buscarPermissao(Integer idDaPermissao) {
 		ArrayList<String> resultado = new ArrayList<String>();
-		String selecionarPermissao = "SELECT * from tb_permissao_dados where idpermissao="+ idDaPermissao+";";
+		String selecionarPermissao = "SELECT * from permissoesTabela where idPermissao="+ idDaPermissao+";";
 		try {
 			ResultSet rs = db.executeQuery(selecionarPermissao);
 			ResultSetMetaData rsmd = rs.getMetaData();
@@ -109,7 +109,7 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	 */
 	public ArrayList<PermissaoModel> buscarTodasAsPermissões() {
 		ArrayList<PermissaoModel> resultado = new ArrayList<PermissaoModel>();
-		String selecionarPermissao = "SELECT * from tb_permissao_dados;";
+		String selecionarPermissao = "SELECT * from permissoesTabela;";
 		try {
 			ResultSet rs = db.executeQuery(selecionarPermissao);
 			ResultSetMetaData rsmd = rs.getMetaData();
@@ -138,8 +138,8 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	 * @return boolean
 	 */
 	public boolean atualizarPermissao(Integer idPermissao, PermissaoModel novaPermissao) {
-		String atualizar = "UPDATE tb_permissao_dados set nome='"+ 
-				novaPermissao.getNomeDaPermissao()+"' where idpermissao ="+idPermissao+";";
+		String atualizar = "UPDATE permissoesTabela set nome='"+ 
+				novaPermissao.getNomeDaPermissao()+"' where idPermissao ="+idPermissao+";";
 		try {
 			db.executeUpdate(atualizar);
 			return true;

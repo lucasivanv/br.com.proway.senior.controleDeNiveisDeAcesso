@@ -12,7 +12,7 @@ import model.acesso.PerfilModel;
 public interface InterfacePerfilDAO {
 	
 	
-	public PerfilModel criarPerfilVazio(Integer idDoPerfil, String nomeDoPerfil);
+	public boolean criarPerfilVazio(Integer idDoPerfil, String nomeDoPerfil);
 	
 	public boolean deletarPerfil(Integer idDoPerfil);
 	

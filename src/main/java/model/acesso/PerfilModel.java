@@ -18,8 +18,8 @@ public class PerfilModel {
 	private Integer idDoPerfil;
 	private String nomeDoPerfil;
 	private ArrayList<PermissaoModel> listaDePermissoesDoPerfil = new ArrayList<PermissaoModel>();
-	private LocalDate inicioValidadePerfil = LocalDate.MIN;
-	private LocalDate fimValidadePerfil = LocalDate.MAX;
+	private LocalDate inicioValidadePerfil = LocalDate.of(1970, 1, 1);
+	private LocalDate fimValidadePerfil = LocalDate.of(2200, 1, 1);
 	private boolean perfilAtivo = true;
 	
 	public boolean isPerfilAtivo() {
@@ -96,6 +96,25 @@ public class PerfilModel {
 		this.listaDePermissoesDoPerfil = listaDePermissoesDoPerfil;
 	}
 	
+	
+	/**
+	 * Construtor da classe PerfilModel
+	 * 
+	 * Não engloba os atributos idPerfil e listaDePermissoesDoPerfil.
+	 * @param nomeDoPerfil
+	 * @param inicioValidadePerfil
+	 * @param fimValidadePerfil
+	 * @param perfilAtivo
+	 */
+	public PerfilModel(String nomeDoPerfil,	LocalDate inicioValidadePerfil, LocalDate fimValidadePerfil, boolean perfilAtivo) {
+		this.nomeDoPerfil = nomeDoPerfil;
+		this.inicioValidadePerfil = inicioValidadePerfil;
+		this.fimValidadePerfil = fimValidadePerfil;
+		this.perfilAtivo = perfilAtivo;
+	}
+
+
+
 	/**	
 	 * @deprecated
 	 * Builder da classe PerfilModel.
