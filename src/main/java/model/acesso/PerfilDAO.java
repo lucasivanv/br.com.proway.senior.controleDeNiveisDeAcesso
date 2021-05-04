@@ -14,9 +14,16 @@ import model.interfaces.InterfacePerfilDAO;
  * 
  * Classe que implementa a interface que se relaciona com o banco de dados de perfis
  * 
+ * @author Sprint 3
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Sarah Brito, sarah.brito@senior.com.br
  * 
+ * @author Sprint 4
+ * @author Elton Oliveira, elton.oliveira@senior.com.br
+ * @author Lucas Ivan, lucas.ivan@senior.com.br
+ * @author Thiago Barbieri, thiago.barbieri@senior.com.br
+ * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
+ * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 
 public class PerfilDAO implements InterfacePerfilDAO{
@@ -25,19 +32,21 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	
 	private ArrayList<PerfilModel> listaDePerfisCriados = new ArrayList<PerfilModel>();
 	
+	/**
+	 * Método para conectar com o DB
+	 */
 	public PerfilDAO() {
 		db = DBConnection.getInstance();
 	}
 	
 	/**
-	 * Método criarPerfil
+	 * Método criarPerfilVazio
 	 * 
-	 * Método responsável por criar um perfil vazio no banco de dados conforme
-	 * atribuitos associadados
+	 * Método responsável por criar um perfil vazio (sem permissoes), sem validade e ativo no banco de dados conforme
+	 * atributos associados
 	 * 
-	 * @param idDoPerfil Integer
 	 * @param nomeDoPerfil String
-	 * @return PerfilModel 
+	 * @return boolean
 	 * 
 	 */
 	public boolean criarPerfilVazio(String nomeDoPerfil) {
@@ -56,6 +65,16 @@ public class PerfilDAO implements InterfacePerfilDAO{
 		}	
 	}
 	
+	/**
+	 * Método criarPerfilVazioTemporario
+	 * 
+	 * Método responsável por criar um perfil vazio (sem permissoes), com validade e ativo no banco de dados conforme
+	 * atributos associados
+	 * 
+	 * @param nomeDoPerfil String
+	 * @return boolean
+	 * 
+	 */
 	public boolean criarPerfilVazioTemporario(PerfilModel perfil) {
 		String insertPerfil = "INSERT INTO perfilTabela(nomePerfil, dataInicio, dataFim, status) "
 				+ "values('" + perfil.getNomeDoPerfil() +"', '" + 
@@ -91,9 +110,7 @@ public class PerfilDAO implements InterfacePerfilDAO{
 			e.printStackTrace();
 			return false;
 		}
-	}
-	
-	
+	}	
 	
 	/**
 	 * Método atualizar

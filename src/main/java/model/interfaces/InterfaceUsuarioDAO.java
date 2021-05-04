@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import model.acesso.UsuarioModel;
 
 /**
- * 
  * @author Vitor Peres
  * @author David Willian
  * @author Leonardo Pereira
@@ -13,8 +12,7 @@ import model.acesso.UsuarioModel;
  * leonardo.pereira@senior.com.br
  * david.oliveira@senior.com.br
  * 
- * ver 2 - integração com PostgreSQL + JDBC
- 
+ * ver 2 - integraï¿½ï¿½o com PostgreSQL + JDBC
  */
 public interface InterfaceUsuarioDAO<T> {
 	public boolean criarUsuario(String hashSenha, String loginUsuario);
@@ -26,6 +24,5 @@ public interface InterfaceUsuarioDAO<T> {
 	public UsuarioModel buscarUsuario(Integer idUsuario);
 	
 	public ArrayList<UsuarioModel> buscarTodosUsuarios();
-	
 	
 }

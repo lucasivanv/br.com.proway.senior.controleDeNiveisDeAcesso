@@ -8,34 +8,46 @@ import java.util.ArrayList;
 
 import db.DBConnection;
 import model.interfaces.InterfaceUsuarioDAO;
+/**
+ * Classe UsuarioDAO
+ * 
+ * Classe que implementa a interface que se relaciona com o banco de dados de
+ * usuarios
+ * 
+ * @author Sprint 3
+ * @author David Willian, david.oliveira@senior.com.br
+ * @author Leonardo Pereira, leonardo.pereira@senior.com.br
+ * @author Vitor Peres, vitor.peres@senior.com.br
+ * 
+ * @author Sprint 4
+ * @author Elton Oliveira, elton.oliveira@senior.com.br
+ * @author Lucas Ivan, lucas.ivan@senior.com.br
+ * @author Thiago Barbieri, thiago.barbieri@senior.com.br
+ * @author Vitor Gon√ßalves, vitor.goncalves@senior.com.br
+ * @author Vitor Gehrke, vitor.gehrke@senior.com.br
+ */
 
 public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 
+	public ArrayList<UsuarioModel> user = new ArrayList<UsuarioModel>();
+
 	/**
+	 * Cria usu√°rio novo.
 	 * 
-	 * @author Vitor Peres vitor.peres@senior.com.br
-	 * @author David Willian david.oliveira@senior.com.br
-	 * @author Leonardo Pereira leonardo.pereira@senior.com.br
-	 *        
-	 *         vers„o 2.0 -- implementaÁ„o postgreSQL + jdbc
-	 * @author Elton F Oliveira elton.oliveira@senior.com.br
-	 * @author Vitor A Gehrke vitor.gehrke@senior.com.br
-	 */
-
-	
-	public DBConnection db;
-
-	/**
-	 * Singleton para conex„o com DB
+	 * Recebe objeto e adiciona no ArrayList<Usuario> user da classe UsuarioDAO
+	 * 
+	 * @param UsuarioModel novoUser como par√¢metro para o DAO adicionar na lista de
+	 *                     usuarios.
+	 * @return void
 	 */
 	public UsuarioDAO() {
 		db = DBConnection.getInstance();
 	}
 
 	/**
-	 * MÈtodo criarUsuario
+	 * M√©todo criarUsuario
 	 * 
-	 * MÈtodo respons·vel por inserir um usu·rio no banco de dados conforme
+	 * M√©todo respons√°vel por inserir um usu√°rio no banco de dados conforme
 	 * atributos associados
 	 * 
 	 * @param hashSenha    String
@@ -56,14 +68,13 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * MÈtodo deletarUsuario
+	 * M√©todo deletarUsuario
 	 * 
-	 * MÈtodo respons·vel por deletar um usu·rio existente no banco de dados a
+	 * M√©todo respons√°vel por deletar um usu√°rio existente no banco de dados a
 	 * partir do id informado
 	 * 
 	 * @param idUsuario Integer
 	 * @return boolean
-	 * 
 	 */
 	public boolean deletarUsuario(Integer idUsuario) {
 		String deletarUsuario = "DELETE from usuariostabela where idusuario=" + idUsuario + ";";
@@ -77,7 +88,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Atualiza um usu·rio no banco de dados.
+	 * Atualiza um usu√°rio no banco de dados.
 	 * 
 	 * @param idUsuario Integer
 	 * @param usuario   UsuarioModel
@@ -96,10 +107,10 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Busca um usu·rio no banco de dados a partir de seu idUsuario
+	 * Busca um usu√°rio no banco de dados a partir de seu idUsuario
 	 * 
 	 * @param idUsuario
-	 * @return o usu·rio caso true / null caso exception
+	 * @return o usu√°rio caso true / null caso exception
 	 */
 	public UsuarioModel buscarUsuario(Integer idUsuario) {
 		ArrayList<String> resultado = new ArrayList<String>();
@@ -121,7 +132,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Lista todos os usu·rios do banco, retornando seus dados.
+	 * Lista todos os usu√°rios do banco, retornando seus dados.
 	 * 
 	 * 
 	 * @return
