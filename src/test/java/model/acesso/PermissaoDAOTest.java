@@ -79,6 +79,17 @@ public class PermissaoDAOTest {
 	}
 	
 	@Test
+	public void buscarPermissaoPorNomeNoBancoDeDados() {
+		PermissaoDAO permissaoDAO = new PermissaoDAO();
+		permissaoDAO.db.limparDB("permissoestabela");
+		permissaoDAO.criarPermissao("Remover");
+		PermissaoModel pmteste = new PermissaoModel("Remover");
+		PermissaoModel pm = permissaoDAO.buscarPermissao("Remover");
+		assertTrue(pmteste.getNomeDaPermissao().equals(pm.getNomeDaPermissao()));		
+	 
+	}
+	
+	@Test
 	public void buscarTodasAsPermissoesNoBancoDeDados() {
 		PermissaoDAO permissaoDAO = new PermissaoDAO();
 		permissaoDAO.db.limparDB("permissoestabela");
@@ -92,11 +103,29 @@ public class PermissaoDAOTest {
 		listaPMteste.addAll(Arrays.asList(pmteste1, pmteste2, pmteste3));
 		int i = 0;
 		
-		ArrayList<PermissaoModel> listaPM = permissaoDAO.buscarTodasAsPermissões();
+		ArrayList<PermissaoModel> listaPM = permissaoDAO.buscarTodasAsPermissoes();
 		
 		assertTrue(listaPMteste.get(0).getNomeDaPermissao().equals(listaPM.get(0).getNomeDaPermissao()));		
 		assertTrue(listaPMteste.get(1).getNomeDaPermissao().equals(listaPM.get(1).getNomeDaPermissao()));		
 		assertTrue(listaPMteste.get(2).getNomeDaPermissao().equals(listaPM.get(2).getNomeDaPermissao()));		
+	}
+	
+	@Test
+	public void deletarPermissaoPorNomeNoBancoDeDados() {
+		PermissaoDAO permissaoDAO = new PermissaoDAO();
+		permissaoDAO.db.limparDB("permissoestabela");
+		permissaoDAO.criarPermissao("Remover");
+		permissaoDAO.criarPermissao("Remover2");
+		int i = 0;
+		try {
+			permissaoDAO.deletarPermissao("Remover2");
+			
+			ResultSet rs = permissaoDAO.db.executeQuery("select * from permissoestabela");	
+			rs.next();
+			assertEquals(rs.getString(2), "Remover");	
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}
 	}
 	
 	@Test

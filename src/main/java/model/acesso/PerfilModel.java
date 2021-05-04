@@ -6,8 +6,8 @@ import java.util.ArrayList;
 /**
  * Classe PerfilModel
  * 
- * Defini os atributos necess·rios para instanciar um perfil, o que È
- * constituÌdo por permissıes.
+ * Defini os atributos necess√°rios para instanciar um perfil, o que √©
+ * constitu√≠do por permiss√µes.
  * 
  * @author Sprint 3
  * @author Lucas Ivan, lucas.ivan@senior.com.br
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author Elton Oliveira, elton.oliveira@senior.com.br
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Thiago Barbieri, thiago.barbieri@senior.com.br
- * @author Vitor GonÁalves, vitor.goncalves@senior.com.br
+ * @author Vitor Gon√ßalves, vitor.goncalves@senior.com.br
  * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 public class PerfilModel {
@@ -80,7 +80,7 @@ public class PerfilModel {
 	/**
 	 * Construtor da classe PerfilModel.
 	 * 
-	 * N„o engloba os atributos inicioValidadePerfil, fimValidadePerfil e
+	 * N√£o engloba os atributos inicioValidadePerfil, fimValidadePerfil e
 	 * perfilAtivo, criando um perfil permanente (sem validade).
 	 * 
 	 * @param idDoPerfil   Integer
@@ -94,7 +94,7 @@ public class PerfilModel {
 	/**
 	 * Construtor da classe PerfilModel
 	 * 
-	 * N„o engloba os atributos idPerfil e listaDePermissoesDoPerfil.
+	 * N√£o engloba os atributos idPerfil e listaDePermissoesDoPerfil.
 	 * 
 	 * @param nomeDoPerfil
 	 * @param inicioValidadePerfil
