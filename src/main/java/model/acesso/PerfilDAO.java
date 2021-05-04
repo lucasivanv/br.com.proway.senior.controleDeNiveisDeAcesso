@@ -1,10 +1,11 @@
 package model.acesso;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import controller.ConverterDataDB;
 import db.DBConnection;
 import model.interfaces.InterfacePerfilDAO;
 
@@ -55,6 +56,22 @@ public class PerfilDAO implements InterfacePerfilDAO{
 		}	
 	}
 	
+	public boolean criarPerfilVazioTemporario(PerfilModel perfil) {
+		String insertPerfil = "INSERT INTO perfilTabela(nomePerfil, dataInicio, dataFim, status) "
+				+ "values('" + perfil.getNomeDoPerfil() +"', '" + 
+				perfil.getInicioValidadePerfil().toString() + "', '" + 
+				perfil.getFimValidadePerfil().toString() + "', " + 
+				perfil.isPerfilAtivo() + ");";
+		
+		try {
+			db.executeUpdate(insertPerfil);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
 	/**
 	 * Método deletarPerfil
 	 * 
@@ -75,6 +92,8 @@ public class PerfilDAO implements InterfacePerfilDAO{
 			return false;
 		}
 	}
+	
+	
 	
 	/**
 	 * Método atualizar
@@ -110,13 +129,91 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	 * @return PerfilModel
 	 */
 	public PerfilModel buscarPerfil(Integer idDoPerfil) {
-		for (PerfilModel perfilModel : listaDePerfisCriados) {
-			if (perfilModel.getIdDoPerfil() == idDoPerfil) {
-				return perfilModel;
+		ArrayList<String> resultado = new ArrayList<String>();
+		String buscarPerfil = "SELECT * from perfilTabela where idPerfil="+ idDoPerfil +";";
+		try {
+			ResultSet rs = db.executeQuery(buscarPerfil);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int totalColunas = rsmd.getColumnCount();
+			if(rs.next()) {
+				for (int i = 1; i <= totalColunas; i ++) {
+					resultado.add(rs.getString(i));
+				}
 			}
+			return new PerfilModel(Integer.parseInt(resultado.get(0)), resultado.get(1), LocalDate.parse(resultado.get(2)), LocalDate.parse(resultado.get(3)), Boolean.parseBoolean(resultado.get(4)));
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public PerfilModel buscarPerfilPorNomePerfil(String nomePerfil) {
+		ArrayList<String> resultado = new ArrayList<String>();
+		String buscarPerfil = "SELECT * from perfilTabela where nomeperfil='"+ nomePerfil +"';";
+		try {
+			ResultSet rs = db.executeQuery(buscarPerfil);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int totalColunas = rsmd.getColumnCount();
+			if(rs.next()) {
+				for (int i = 1; i <= totalColunas; i ++) {
+					resultado.add(rs.getString(i));
+				}
+			}
+			return new PerfilModel(Integer.parseInt(resultado.get(0)), resultado.get(1), LocalDate.parse(resultado.get(2)), LocalDate.parse(resultado.get(3)), Boolean.parseBoolean(resultado.get(4)));
+		} catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
+	
+	
+	public ArrayList<PerfilModel> buscarPerfilPorStatus(boolean status) {
+		ArrayList<PerfilModel> resultado = new ArrayList<PerfilModel>();
+		String buscarPerfil = "SELECT * from perfilTabela where status='"+ status +"';";
+		try {
+			ResultSet rs = db.executeQuery(buscarPerfil);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int totalColunas = rsmd.getColumnCount();
+			while(rs.next()) {
+				ArrayList<String> linha = new ArrayList<String>();
+				for (int i = 1; i <= totalColunas; i ++) {
+					linha.add(rs.getString(i));
+				}
+				PerfilModel pm = new PerfilModel(Integer.parseInt(linha.get(0)), linha.get(1), LocalDate.parse(linha.get(2)), LocalDate.parse(linha.get(3)), Boolean.parseBoolean(linha.get(4)));
+				resultado.add(pm);
+			}
+			return resultado;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public ArrayList<PerfilModel> buscarTodasAsPerfil() {
+		ArrayList<PerfilModel> resultado = new ArrayList<PerfilModel>();
+		String selecionarPerfil = "SELECT * from perfilTabela;";
+		try {
+			ResultSet rs = db.executeQuery(selecionarPerfil);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int totalColunas = rsmd.getColumnCount();
+			while(rs.next()) {
+				ArrayList<String> linha = new ArrayList<String>();
+				for (int i = 1; i <= totalColunas; i ++) {
+					linha.add(rs.getString(i));
+				}
+				PerfilModel pm = new PerfilModel(Integer.parseInt(linha.get(0)), linha.get(1));
+				resultado.add(pm);
+			}
+			return resultado;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+
+	
+	
 
 	/**
 	 * Método lerListaDePerfisCriados

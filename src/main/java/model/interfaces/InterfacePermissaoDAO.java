@@ -16,6 +16,8 @@ public interface InterfacePermissaoDAO {
 	
 	public PermissaoModel buscarPermissao(Integer idDaPermissao);
 	
-	public ArrayList<PermissaoModel> lerListaDePermissoesCriadas();
+	public ArrayList<PermissaoModel> buscarTodasAsPermissões();
+	
+	public boolean atualizarPermissao(Integer idPermissao, PermissaoModel permissao);
 
 }

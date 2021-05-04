@@ -26,8 +26,6 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 		db = DBConnection.getInstance();
 	}
 
-	private ArrayList<PermissaoModel> listaDePermissoesCriadas = new ArrayList<PermissaoModel>();
-
 	/**
 	 * Método criarPermissao
 	 * 
@@ -148,21 +146,4 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 			return false;
 		}
 	}
-
-	/**
-	 * Método lerListaDePermissoesCriadas
-	 * 
-	 * Retorna a lista de permissoes criadas
-	 *  
-	 * @return ArrayList<PermissaoModel>
-	 */
-	public ArrayList<PermissaoModel> lerListaDePermissoesCriadas() {
-		return listaDePermissoesCriadas;
-	}
-	
-	/**
-	 * 
-	 */
-
-
 }
