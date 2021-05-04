@@ -68,6 +68,27 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 			return false;
 		}
 	}
+	
+	/**
+	 * Método deletarPermissao
+	 * 
+	 * Método responsável por deletar uma permissao existente no banco de dados a partir do
+	 * nome da permissao
+	 * 
+	 * @param idDaPermissao Integer
+	 * @return boolean
+	 * 
+	 */
+	public boolean deletarPermissao(String nome){
+		String deletarPermissao = "DELETE from permissoesTabela where nome='"+ nome +"';";
+		try {
+			db.executeUpdate(deletarPermissao);
+			return true;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	/**
 	 * Método buscarPermissao
@@ -98,6 +119,39 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	}
 	
 	/**
+	 * Método buscarPermissao
+	 * 
+	 * Método responsável por buscar, através do nome, uma permissão dentro do banco de dados. 
+	 * Se a permissao existe, retorna a mesma. Se não, retorna nulo.
+	 * 
+	 * @param nomeDaPermissao String
+	 * @return PermissaoModel
+	 */
+	public PermissaoModel buscarPermissao(String nomeDaPermissao) {
+		ArrayList<String> resultado = new ArrayList<String>();
+		String selecionarPermissao = "SELECT * from permissoesTabela where nome='"+ nomeDaPermissao+"';";
+		try {
+			ResultSet rs = db.executeQuery(selecionarPermissao);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int totalColunas = rsmd.getColumnCount();
+			if(rs.next()) {
+				for (int i = 1; i <= totalColunas; i ++) {
+					resultado.add(rs.getString(i));
+				}
+			}
+			if(!resultado.isEmpty()) {
+				return new PermissaoModel(Integer.parseInt(resultado.get(0)), resultado.get(1));
+			} else {
+				return null;
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
 	 * Método buscarTodasAsPermissões.
 	 * 
 	 * Método responsável por buscar todas as permissões dentro do banco de dados. 
@@ -105,7 +159,7 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 	 * @param idDaPermissao Integer
 	 * @return PermissaoModel
 	 */
-	public ArrayList<PermissaoModel> buscarTodasAsPermissões() {
+	public ArrayList<PermissaoModel> buscarTodasAsPermissoes() {
 		ArrayList<PermissaoModel> resultado = new ArrayList<PermissaoModel>();
 		String selecionarPermissao = "SELECT * from permissoesTabela;";
 		try {
