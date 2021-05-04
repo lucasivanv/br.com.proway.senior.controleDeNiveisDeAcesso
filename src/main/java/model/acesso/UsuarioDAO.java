@@ -33,8 +33,6 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 
 	public ArrayList<UsuarioModel> user = new ArrayList<UsuarioModel>();
 	
-	DBConnection db;
-
 	/**
 	 * Cria usuário novo.
 	 * 
@@ -44,9 +42,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	 *                     usuarios.
 	 * @return void
 	 */
-	
-	public DBConnection db;
-	
+		
 	public UsuarioDAO() {
 		db = DBConnection.getInstance();
 	}

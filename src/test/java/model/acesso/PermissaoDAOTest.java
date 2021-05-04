@@ -20,6 +20,16 @@ import org.junit.Test;
 public class PermissaoDAOTest {
 	
 	@Test
+	public void criarPermissoes() {
+		PermissaoDAO permissaoDAO = new PermissaoDAO();
+		permissaoDAO.criarPermissao("Remover");
+		permissaoDAO.criarPermissao("Adicionar");
+		permissaoDAO.criarPermissao("Limpar");
+		permissaoDAO.criarPermissao("Lavar");
+		permissaoDAO.criarPermissao("Dormir");
+	}
+	
+	@Test
 	public void criarPermissaoNoBancoDeDados() {
 		PermissaoDAO permissaoDAO = new PermissaoDAO();
 		permissaoDAO.db.limparDB("permissoestabela");

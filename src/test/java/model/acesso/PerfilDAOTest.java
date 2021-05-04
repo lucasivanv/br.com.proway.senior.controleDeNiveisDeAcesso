@@ -17,6 +17,16 @@ import org.junit.Test;
  */
 
 public class PerfilDAOTest {
+	
+	@Test
+	public void testCriarPerfilQualquer() {
+		PerfilDAO perfilDAO = new PerfilDAO();
+		perfilDAO.criarPerfilVazio("Vale transporte");
+		perfilDAO.criarPerfilVazio("vale merenda");
+		perfilDAO.criarPerfilVazio("vale vale");
+		perfilDAO.criarPerfilVazio("vale Maria");
+		perfilDAO.criarPerfilVazio("vale gerencia");
+	}
 
 	@Test
 	public void criarPerfilVazioNoBancoDeDados() {

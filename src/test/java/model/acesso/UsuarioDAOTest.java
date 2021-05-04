@@ -24,6 +24,16 @@ import org.junit.Test;
  */
 public class UsuarioDAOTest {
 	
+	@Test
+	public void testCriarUsuarioQualquer() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		usuarioDAO.criarUsuario("ekjfajlkfbngj", "Marcos");
+		usuarioDAO.criarUsuario("jsngjg", "Pedro");
+		usuarioDAO.criarUsuario("ekjfajlkfbakjbgkajbgjkngj", "João");
+		usuarioDAO.criarUsuario("ekjfajl54g5ag43kfbngj", "Maria");
+		usuarioDAO.criarUsuario("ekjfaj684a163ga6g8lkfbngj", "Antonia");
+	}
+	
 	
 	@Test
 	public void testCriarUsuarioNoBancoDeDados() {
