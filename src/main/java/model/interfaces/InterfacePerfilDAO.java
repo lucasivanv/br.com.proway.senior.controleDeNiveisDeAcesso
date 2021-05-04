@@ -12,14 +12,15 @@ import model.acesso.PerfilModel;
 public interface InterfacePerfilDAO {
 	
 	
-	public boolean criarPerfilVazio(Integer idDoPerfil, String nomeDoPerfil);
+	public boolean criarPerfilVazio(String nomeDoPerfil);
 	
 	public boolean deletarPerfil(Integer idDoPerfil);
 	
+	public boolean atualizarPerfil(Integer idDoPerfil, PerfilModel perfil);
+	
 	public PerfilModel buscarPerfil(Integer idDoPerfil);
 	
-	public ArrayList<PerfilModel> lerListaDePerfisCriados();
+	public ArrayList<PerfilModel> buscarTodasAsPerfil();
 	
-	public PerfilModel alterarNomePerfil(Integer idDoPerfil, String nomeDoPerfil);
 	
 }

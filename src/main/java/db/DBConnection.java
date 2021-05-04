@@ -8,9 +8,9 @@ import java.sql.Statement;
 
 public class DBConnection {
 	
-	static String url = "jdbc:postgresql://localhost:5432/grupo3";
-	static String user = "grupo3";
-	static String password = "grupo3";
+	static String url = "jdbc:postgresql://localhost:5432/Grupo3";
+	static String user = "Grupo3";
+	static String password = "admin";
 	public static Connection con;
 	
 	static DBConnection dbConnection = null;
