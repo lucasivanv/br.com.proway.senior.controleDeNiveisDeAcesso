@@ -1,5 +1,11 @@
 package model.acesso;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -13,57 +19,186 @@ import org.junit.Test;
 public class PerfilDAOTest {
 
 	@Test
-	public void testeCriacaoPerfilVazio() {
+	public void criarPerfilVazioNoBancoDeDados() {
 		PerfilDAO perfilDAO = new PerfilDAO();
-		perfilDAO.criarPerfilVazio("RH");
+		
+		perfilDAO.db.limparDB("perfilTabela");
+		perfilDAO.criarPerfilVazio("Recursos Humanos");
+		
+		try {
+			ResultSet rs = perfilDAO.db.executeQuery("select * from perfilTabela");
+			if(rs.next()) {
+				assertEquals("Recursos Humanos", rs.getString(2));
+			}
+			
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}
 	}
 	
 	@Test
-	public void testeCriacaoPerfilVazioTemporario() {
-		PerfilDAO perfilDAO = new PerfilDAO();
-		PerfilModel perfil = new PerfilModel("Temp", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false);
+	public void criarPerfilVazioTemporario() {
+		PerfilDAO perfilDAO = new PerfilDAO();		
+		perfilDAO.db.limparDB("perfilTabela");
+		
+		PerfilModel perfil = new PerfilModel("Recursos Humanos", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false);
 		perfilDAO.criarPerfilVazioTemporario(perfil);
+		
+		try {
+			ResultSet rs = perfilDAO.db.executeQuery("select * from perfilTabela");
+			if(rs.next()) {
+				assertEquals("Recursos Humanos", rs.getString(2));
+				assertEquals(LocalDate.of(2000, 05, 03).toString(), rs.getString(3));
+				assertEquals(LocalDate.of(2000, 05, 03).toString(), rs.getString(3));
+				assertEquals(LocalDate.of(2000, 05, 03).toString(), rs.getString(4));
+				assertEquals("f", rs.getString(5));
+			}
+			
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}		
 	}
 	
 	@Test
 	public void deletarPerfilNoBancoDeDados() {
 		PerfilDAO perfilDAO = new PerfilDAO();
-		perfilDAO.deletarPerfil(2);
+		perfilDAO.db.limparDB("perfilTabela");
+		
+		perfilDAO.criarPerfilVazio("Recursos Humanos");
+		perfilDAO.criarPerfilVazio("Financeiro");
+		
+		int i = 0;
+		try {
+			ResultSet rs = perfilDAO.db.executeQuery("select max(idPerfil) from perfilTabela");
+			if(rs.next()) {
+				i = rs.getInt(1);
+			}
+			perfilDAO.deletarPerfil(i);
+			
+			rs = perfilDAO.db.executeQuery("select * from perfilTabela");	
+			rs.next();
+			
+			assertTrue(Integer.parseInt(rs.getString(1)) < i);		
+			assertEquals(rs.getString(2), "Recursos Humanos");	
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}
 	}
 	
 	@Test
 	public void atualizarPerfilNoBancoDeDados() {
 		PerfilDAO perfilDAO = new PerfilDAO();
-		PerfilModel pm = new PerfilModel("TesteAtt", LocalDate.of(2015,5,25), LocalDate.of(2022, 4, 13), false);
-		perfilDAO.atualizarPerfil(3, pm);
+		perfilDAO.db.limparDB("perfilTabela");
+		
+		PerfilModel perfil = new PerfilModel("Recursos Humanos", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false);
+		perfilDAO.criarPerfilVazioTemporario(perfil);
+		
+		PerfilModel perfilAtualizado = new PerfilModel("RH", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false);
+		
+		int i = 0;
+		try {
+			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
+			if(rs.next()) {
+				i = rs.getInt(1);
+			}
+			perfilDAO.atualizarPerfil(i, perfilAtualizado);
+			assertEquals(perfilDAO.buscarPerfil(i).getNomeDoPerfil(), "RH");
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}
 	}
-	
+		
+
 	@Test
 	public void buscarPerfil() {
 		PerfilDAO perfilDAO = new PerfilDAO();
-		PerfilModel perfil = perfilDAO.buscarPerfil(3);
-		System.out.println(perfil.toString());
+		perfilDAO.db.limparDB("perfilTabela");
+		
+		PerfilModel perfil = new PerfilModel("Recursos Humanos", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false);
+		perfilDAO.criarPerfilVazioTemporario(perfil);
+
+		int i = 0;
+		try {
+			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
+			if(rs.next()) {
+				i = rs.getInt(1);
+			}
+			PerfilModel pm = perfilDAO.buscarPerfil(i);
+			
+			assertTrue(perfil.getNomeDoPerfil().equals(pm.getNomeDoPerfil()));		
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}
 	}
 	
 	@Test
 	public void buscarPerfilPornomePerfil() {
+
 		PerfilDAO perfilDAO = new PerfilDAO();
-		PerfilModel perfilModel = perfilDAO.buscarPerfilPorNomePerfil("Temp");
-		System.out.println(perfilModel.toString());
+		perfilDAO.db.limparDB("perfilTabela");
+		
+		PerfilModel perfil = new PerfilModel("Recursos Humanos", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false);
+		perfilDAO.criarPerfilVazioTemporario(perfil);
+
+		try {
+			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
+			if(rs.next()) {
+			}
+			PerfilModel pm = perfilDAO.buscarPerfilPorNomePerfil(perfil.getNomeDoPerfil());
+			
+			assertTrue(perfil.getNomeDoPerfil().equals(pm.getNomeDoPerfil()));		
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}
 	}
+
 	
 	@Test
 	public void buscarPerfilPorStatus() {
 		PerfilDAO perfilDAO = new PerfilDAO();
-		ArrayList<PerfilModel> perfilModel = perfilDAO.buscarPerfilPorStatus(false);
-		System.out.println(perfilModel.toString());
+		perfilDAO.db.limparDB("perfilTabela");
+
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Recursos Humanos", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false));
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Cadastro", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), true));
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Férias", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false));
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Controle de Ponto", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false));
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Financeiro", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), true));
+
+		try {
+			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
+			if(rs.next()) {
+			}
+			ArrayList<PerfilModel> pmLista = perfilDAO.buscarPerfilPorStatus(false);
+			
+			assertEquals(pmLista.size(), 3);
+			
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}
 	}
 	
 	@Test
 	public void buscarTodasAsPerfil() {
 		PerfilDAO perfilDAO = new PerfilDAO();
-		ArrayList<PerfilModel> perfilModel = perfilDAO.buscarTodasAsPerfil();
-		System.out.println(perfilModel.toString());
+		perfilDAO.db.limparDB("perfilTabela");
+
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Recursos Humanos", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false));
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Cadastro", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), true));
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Férias", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false));
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Controle de Ponto", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), false));
+		perfilDAO.criarPerfilVazioTemporario(new PerfilModel("Financeiro", LocalDate.of(2000, 05, 03), LocalDate.of(2000, 05, 03), true));
+
+		try {
+			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
+			if(rs.next()) {
+			}
+			ArrayList<PerfilModel> pmLista = perfilDAO.buscarTodasAsPerfil();
+			
+			assertEquals(pmLista.size(), 5);
+			
+		} catch (SQLException e) {
+			fail("Não encontrado");
+		}
 	}
 	
 	
