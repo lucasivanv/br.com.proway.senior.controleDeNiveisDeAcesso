@@ -19,6 +19,6 @@ public interface InterfacePerfilDAO {
 
 	public PerfilModel buscarPerfil(Integer idDoPerfil);
 
-	public ArrayList<PerfilModel> buscarTodasAsPerfil();
+	public ArrayList<PerfilModel> buscarTodosOsPerfis();
 
 }

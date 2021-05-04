@@ -23,7 +23,7 @@ public class UsuarioDAOTest {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarioDAO.criarUsuario("uiluiluiuio", "Teste2");
 	}
-	
+
 	@Test
 	public void testeDeletarUsuario() {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();

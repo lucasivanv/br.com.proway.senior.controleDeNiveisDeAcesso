@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class UsuarioModel {
 
 	
-
 	private int idUsuario;
 	private String loginDoUsuario;
 	private String hashSenhaDoUsuario;
@@ -48,7 +47,6 @@ public class UsuarioModel {
 	public String toString() {
 		return "UsuarioModel [idUsuario=" + idUsuario + ", loginDoUsuario=" + loginDoUsuario + ", hashSenhaDoUsuario="
 				+ hashSenhaDoUsuario + "]";
-
 	}
 
 	public UsuarioModel() {

@@ -158,9 +158,8 @@ public class PermissaoDAO implements InterfacePermissaoDAO {
 			}
 			if(!resultado.isEmpty()) {
 				return new PermissaoModel(Integer.parseInt(resultado.get(0)), resultado.get(1));
-			} else {
-				return null;
-			}
+			} 
+			return null;
 			
 		} catch(SQLException e) {
 			e.printStackTrace();

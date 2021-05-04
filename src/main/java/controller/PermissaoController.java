@@ -22,7 +22,7 @@ public class PermissaoController {
 	public PermissaoDAO getDao() {
 		return dao;
 	}
-
+	
 	public void setDao(PermissaoDAO dao) {
 		this.dao = dao;
 	}

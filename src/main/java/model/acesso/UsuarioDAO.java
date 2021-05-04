@@ -30,6 +30,8 @@ import model.interfaces.InterfaceUsuarioDAO;
 public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 
 	public ArrayList<UsuarioModel> user = new ArrayList<UsuarioModel>();
+	
+	DBConnection db;
 
 	/**
 	 * Cria usuário novo.

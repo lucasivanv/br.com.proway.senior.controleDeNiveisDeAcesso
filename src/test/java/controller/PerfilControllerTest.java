@@ -1,13 +1,17 @@
 package controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 
-import controller.PerfilController;
-import controller.PermissaoController;
+import model.acesso.PerfilModel;
 
 /**
  * @author Lucas Ivan, lucas.ivan@senior.com.br
@@ -20,192 +24,142 @@ public class PerfilControllerTest {
 	public void verificaSeOcorreACriacaoDeUmPerfil() {
 
 		PerfilController perfilController = new PerfilController();
-
-		Integer idDoPerfil = 10;
-		String nomeDoPerfil = "Ponto";
-
-		assertTrue(perfilController.criarPerfilVazioController(idDoPerfil, nomeDoPerfil));
+		perfilController.getDao().db.limparDB("perfiltabela");
+		assertTrue(perfilController.criarPerfilVazioController("Ponto"));
 	}
-
+	
 	@Test
-	public void verificaSeOcorreACriacaoDeDoisPerfis() {
+	public void verificaSeOcorreACriacaoDeUmPerfilTemporario() {
 
 		PerfilController perfilController = new PerfilController();
-
-		Integer idDoPerfil1 = 10;
-		String nomeDoPerfil1 = "Ponto";
-
-		Integer idDoPerfil2 = 20;
-		String nomeDoPerfil2 = "Cadastro";
-
-		boolean perfil1 = perfilController.criarPerfilVazioController(idDoPerfil1, nomeDoPerfil1);
-		boolean perfil2 = perfilController.criarPerfilVazioController(idDoPerfil2, nomeDoPerfil2);
-
-		assertTrue(perfil1);
-		assertTrue(perfil2);
-
-		assertEquals(2, perfilController.lerListaDePerfisCriados().size());
+		perfilController.getDao().db.limparDB("perfiltabela");
+		
+		PerfilModel pm = new PerfilModel("Vale vale", LocalDate.of(2012, 10, 29), LocalDate.of(2028, 4, 23), true);
+		assertTrue(perfilController.criarPerfilVazioTemporarioController(pm));
 	}
 
 	@Test
 	public void verificaSeNaoAdicionaPerfisDuplicados() {
-
 		PerfilController perfilController = new PerfilController();
-
-		Integer idDoPerfil1 = 10;
-		String nomeDoPerfil1 = "Ponto";
-
-		Integer idDoPerfil2 = 10;
-		String nomeDoPerfil2 = "Cadastro";
-
-		boolean perfil1 = perfilController.criarPerfilVazioController(idDoPerfil1, nomeDoPerfil1);
-		boolean perfil2 = perfilController.criarPerfilVazioController(idDoPerfil2, nomeDoPerfil2);
-
-		assertTrue(perfil1);
-		assertFalse(perfil2);
-
-		assertEquals(1, perfilController.lerListaDePerfisCriados().size());
+		perfilController.getDao().db.limparDB("perfiltabela");
+		assertTrue(perfilController.criarPerfilVazioController("Ponto"));
+		assertFalse(perfilController.criarPerfilVazioController("Ponto"));
 	}
 	
 	@Test
-	public void verificaSeOPerfilFoiExcluido() {
-		
+	public void verificaSeOPerfilFoiExcluidoPeloNome() {
 		PerfilController perfilController = new PerfilController();
-		Integer idDoPerfil = 10;
-		String nomeDoPerfil = "Ponto";
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		perfilController.criarPerfilVazioController(idDoPerfil, nomeDoPerfil);
-		perfilController.deletarPerfilController(idDoPerfil);
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		perfilController.deletarPerfilController("Vale alimentação");
 		
-		assertTrue(perfilController.lerListaDePerfisCriados().isEmpty());		
+		assertTrue(perfilController.buscarTodosOsPerfis() == null);
 	}
 	
 	@Test
-	public void verificaSeONomeDoPerfilVazioFoiAlterado() {
+	public void verificaSeOPerfilFoiExcluidoPeloID() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		PerfilController perfilController = new PerfilController();		
-		Integer idDoPerfil = 10;
-		String nomeDoPerfilAntigo = "Ponto";
-		String nomeDoPerfilNovo = "Cadastro";
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		perfilController.deletarPerfilController(perfilController.buscarPerfil("Vale alimentação").getIdDoPerfil());
 		
-		perfilController.criarPerfilVazioController(idDoPerfil, nomeDoPerfilAntigo);
-		
-		perfilController.alterarNomePerfilController(idDoPerfil, nomeDoPerfilNovo);
-		
-		assertEquals(nomeDoPerfilNovo, perfilController.lerListaDePerfisCriados().get(0).getNomeDoPerfil());
+		assertTrue(perfilController.buscarPerfil("Vale alimentação") == null);
 	}
 	
 	@Test
-	public void verificaSeADataInicioDoPerfilVazioFoiAlterada() {
+	public void buscarPerfilPeloNome() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		PerfilController perfilController = new PerfilController();		
-		Integer idDoPerfil = 10;
-		LocalDate data = LocalDate.of(2021, 2, 23);
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		PerfilModel pm = perfilController.buscarPerfil("Vale alimentação");
 		
-		perfilController.criarPerfilVazioController(idDoPerfil, "RH");
-		
-		perfilController.alterarInicioValidadePerfilController(idDoPerfil, data);
-		
-		assertEquals(data, perfilController.lerListaDePerfisCriados().get(0).getInicioValidadePerfil());
+		assertEquals(pm.getNomeDoPerfil(), "Vale alimentação");
 	}
 	
 	@Test
-	public void verificaSeADataFimDoPerfilVazioFoiAlterada() {
+	public void buscarPerfilPeloID() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		PerfilController perfilController = new PerfilController();		
-		Integer idDoPerfil = 10;
-		LocalDate data = LocalDate.of(2021, 2, 23);
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		PerfilModel pm = perfilController.buscarPerfil(perfilController.buscarPerfil("Vale alimentação").getIdDoPerfil());
 		
-		perfilController.criarPerfilVazioController(idDoPerfil, "RH");
-		
-		perfilController.alterarFimValidadePerfilController(idDoPerfil, data);
-		
-		assertEquals(data, perfilController.lerListaDePerfisCriados().get(0).getFimValidadePerfil());
+		assertEquals(pm.getNomeDoPerfil(), "Vale alimentação");
 	}
 	
 	@Test
-	public void verificaSeOEstadoDeAtividadeDoPerfilVazioFoiAlterado() {
+	public void buscarTodosOsPerfis() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		PerfilController perfilController = new PerfilController();		
-		Integer idDoPerfil = 10;
-		boolean novoEstado = false;
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		perfilController.criarPerfilVazioController("Vale refeição");
+		perfilController.criarPerfilVazioController("Vale transporte");
 		
-		perfilController.criarPerfilVazioController(idDoPerfil, "RH");
-		
-		perfilController.alterarPerfilAtivoController(idDoPerfil, novoEstado);
-		
-		assertEquals(novoEstado, perfilController.lerListaDePerfisCriados().get(0).isPerfilAtivo());
+		ArrayList<PerfilModel> pmLista = perfilController.buscarTodosOsPerfis();
+		assertEquals("Vale alimentação", pmLista.get(0).getNomeDoPerfil());
+		assertEquals("Vale refeição", pmLista.get(1).getNomeDoPerfil());
+		assertEquals("Vale transporte", pmLista.get(2).getNomeDoPerfil());	
 	}
 	
 	@Test
-	public void verificaSeUmaPermissaoEhAtribuidaAUmPerfil() {
+	public void testeAlterarNomePerfil() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		PerfilController perfilController = new PerfilController();		
-		PermissaoController permissaoController = new PermissaoController();
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		perfilController.alterarNomePerfilController(perfilController.buscarPerfil("Vale alimentação").getIdDoPerfil(), "Vale vuvuzela");
 		
-		Integer idDoPerfil = 10;
-		String nomeDoPerfil = "Ponto";
-		
-		Integer idDaPermissao = 20;
-		String nomeDaPermissao = "Atribuir algo";
-		
-		permissaoController.criarPermissaoController(idDaPermissao, nomeDaPermissao);
-		perfilController.criarPerfilVazioController(idDoPerfil, nomeDoPerfil);
-		
-		perfilController.adicionarPermissaoEmUmPerfil(idDoPerfil, idDaPermissao);	
-		
-		assertFalse(perfilController.listarPermissoesDeUmPerfil(idDoPerfil).isEmpty());
+		assertNotNull(perfilController.buscarPerfil("Vale vuvuzela"));
 	}
 	
 	@Test
-	public void verificaSeMaisDeUmaPermissaoEhAtribuidaAUmPerfil() {
+	public void testeAlterarDataInicioPerfil() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		PerfilController perfilController = new PerfilController();		
-		PermissaoController permissaoController = new PermissaoController();
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		perfilController.alterarDataInicioPerfilController(perfilController.buscarPerfil("Vale alimentação").getIdDoPerfil(), LocalDate.of(1234, 5, 6));
 		
-		Integer idDoPerfil = 10;
-		String nomeDoPerfil = "Ponto";
-		
-		Integer idDaPermissao1 = 20;
-		String nomeDaPermissao1 = "Atribuir algo";
-		
-		Integer idDaPermissao2 = 30;
-		String nomeDaPermissao2 = "Deletar algo";
-		
-		Integer idDaPermissao3 = 40;
-		String nomeDaPermissao3 = "Visualizar algo";
-		
-		permissaoController.criarPermissaoController(idDaPermissao1, nomeDaPermissao1);
-		permissaoController.criarPermissaoController(idDaPermissao2, nomeDaPermissao2);
-		permissaoController.criarPermissaoController(idDaPermissao3, nomeDaPermissao2);
-		
-		perfilController.criarPerfilVazioController(idDoPerfil, nomeDoPerfil);
-		
-		perfilController.adicionarPermissaoEmUmPerfil(idDoPerfil, idDaPermissao1);	
-		perfilController.adicionarPermissaoEmUmPerfil(idDoPerfil, idDaPermissao2);	
-		perfilController.adicionarPermissaoEmUmPerfil(idDoPerfil, idDaPermissao3);	
-		
-		assertEquals(3, perfilController.listarPermissoesDeUmPerfil(idDoPerfil).size());
+		assertEquals(LocalDate.of(1234, 5, 6), perfilController.buscarPerfil("Vale alimentação").getInicioValidadePerfil());
 	}
 	
 	@Test
-	public void verificaSeUmaPermissaoEhRemovidaDeUmPerfil() {
+	public void testeAlterarDataFimPerfil() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		PerfilController perfilController = new PerfilController();		
-		PermissaoController permissaoController = new PermissaoController();
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		perfilController.alterarDataFimPerfilController(perfilController.buscarPerfil("Vale alimentação").getIdDoPerfil(), LocalDate.of(1234, 5, 6));
 		
-		Integer idDoPerfil = 10;
-		String nomeDoPerfil = "Ponto";
+		assertEquals(LocalDate.of(1234, 5, 6), perfilController.buscarPerfil("Vale alimentação").getFimValidadePerfil());
+	}
+	
+	@Test
+	public void testeAlterarStatusPerfil() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		Integer idDaPermissao = 20;
-		String nomeDaPermissao = "Atribuir algo";
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		perfilController.alterarStatusPerfilController(perfilController.buscarPerfil("Vale alimentação").getIdDoPerfil(), false);
 		
-		permissaoController.criarPermissaoController(idDaPermissao, nomeDaPermissao);
-		perfilController.criarPerfilVazioController(idDoPerfil, nomeDoPerfil);
+		assertEquals(false, perfilController.buscarPerfil("Vale alimentação").isPerfilAtivo());
+	}
+	
+	@Test
+	public void testeAtualizarPerfil() {
+		PerfilController perfilController = new PerfilController();
+		perfilController.getDao().db.limparDB("perfiltabela");
 		
-		perfilController.adicionarPermissaoEmUmPerfil(idDoPerfil, idDaPermissao);	
-		perfilController.deletarPermissaoEmUmPerfil(idDoPerfil, idDaPermissao);
+		perfilController.criarPerfilVazioController("Vale alimentação");
+		PerfilModel novoPerfil = new PerfilModel("Vale alimentação", LocalDate.of(2020, 3, 6), LocalDate.of(2023, 5, 18), true);
+		perfilController.atualizarPerfilController(perfilController.buscarPerfil("Vale alimentação").getIdDoPerfil(), novoPerfil);
 		
-		assertTrue(perfilController.listarPermissoesDeUmPerfil(idDoPerfil).isEmpty());
+		assertEquals(false, perfilController.buscarPerfil("Vale alimentação").isPerfilAtivo());
+		assertEquals(LocalDate.of(2020, 3, 6), perfilController.buscarPerfil("Vale alimentação").getInicioValidadePerfil());
+		assertEquals(LocalDate.of(2023, 5, 18), perfilController.buscarPerfil("Vale alimentação").getFimValidadePerfil());
 	}
 }

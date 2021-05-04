@@ -144,7 +144,7 @@ public class PerfilDAOTest {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
 			if(rs.next()) {
 			}
-			PerfilModel pm = perfilDAO.buscarPerfilPorNomePerfil(perfil.getNomeDoPerfil());
+			PerfilModel pm = perfilDAO.buscarPerfil(perfil.getNomeDoPerfil());
 			
 			assertTrue(perfil.getNomeDoPerfil().equals(pm.getNomeDoPerfil()));		
 		} catch (SQLException e) {
@@ -168,7 +168,7 @@ public class PerfilDAOTest {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
 			if(rs.next()) {
 			}
-			ArrayList<PerfilModel> pmLista = perfilDAO.buscarPerfilPorStatus(false);
+			ArrayList<PerfilModel> pmLista = perfilDAO.buscarPerfil(false);
 			
 			assertEquals(pmLista.size(), 3);
 			
@@ -192,7 +192,7 @@ public class PerfilDAOTest {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
 			if(rs.next()) {
 			}
-			ArrayList<PerfilModel> pmLista = perfilDAO.buscarTodasAsPerfil();
+			ArrayList<PerfilModel> pmLista = perfilDAO.buscarTodosOsPerfis();
 			
 			assertEquals(pmLista.size(), 5);
 			
@@ -200,99 +200,4 @@ public class PerfilDAOTest {
 			fail("Não encontrado");
 		}
 	}
-	
-	
-//	@Test
-//	public void verificaSeOcorreACriacaoDeUmPerfilVazioDAO() {
-//
-//		PerfilDAO perfilDAO = new PerfilDAO();
-//		PerfilModel perfilEsperado = new PerfilModel(10, "Ponto", null);
-//
-//		Integer idDoPerfil = 10;
-//		String nomeDoPerfil = "Ponto";
-//		
-//		PerfilModel perfilCriado = perfilDAO.criarPerfilVazio(idDoPerfil, nomeDoPerfil);
-//
-//		assertEquals(perfilEsperado.getIdDoPerfil(), perfilCriado.getIdDoPerfil());
-//		assertEquals(perfilEsperado.getNomeDoPerfil(), perfilCriado.getNomeDoPerfil());
-//	}
-//
-//	@Test
-//	public void verificaSeOcorreACriacaoDeDoisPerfisVaziosDAO() {
-//
-//		PerfilDAO perfilDAO = new PerfilDAO();
-//
-//		Integer idDoPerfil1 = 10;
-//		String nomeDoPerfil1 = "Ponto";
-//
-//		Integer idDoPerfil2 = 20;
-//		String nomeDoPerfil2 = "Férias";
-//
-//		perfilDAO.criarPerfilVazio(idDoPerfil1, nomeDoPerfil1);
-//		perfilDAO.criarPerfilVazio(idDoPerfil2, nomeDoPerfil2);
-//
-//		assertEquals(2, perfilDAO.lerListaDePerfisCriados().size());
-//	}
-//
-//	
-//	@Test
-//	public void verificaSeOPerfilVazioFoiExcluidoDAO() {
-//		
-//		PerfilDAO perfilDAO = new PerfilDAO();
-//
-//		Integer idDoPerfil1 = 10;
-//		String nomeDoPerfil1 = "Ponto";
-//		
-//		perfilDAO.criarPerfilVazio(idDoPerfil1, nomeDoPerfil1);
-//		perfilDAO.deletarPerfil(idDoPerfil1);
-//		
-//		assertEquals(0, perfilDAO.lerListaDePerfisCriados().size());
-//	}
-//	
-//	@Test
-//	public void verificaSeONomeDoPerfilVazioFoiAlteradoDAO() {
-//		PerfilDAO perfilDAO = new PerfilDAO();
-//		
-//		Integer idDoPerfil = 10;
-//		String nomeDoPerfilAntigo = "Ponto";
-//		String nomeDoPerfilNovo = "Cadastro";
-//		
-//		perfilDAO.criarPerfilVazio(idDoPerfil, nomeDoPerfilAntigo);
-//		PerfilModel perfilAlterado = perfilDAO.alterarNomePerfil(idDoPerfil, nomeDoPerfilNovo);
-//		
-//		assertEquals(nomeDoPerfilNovo, perfilAlterado.getNomeDoPerfil());
-//		
-//		
-//	}
-//	
-//	@Test
-//	public void verificaSeADataDeInicioDoPerfilFoiAlteradaDAO() {
-//		PerfilDAO perfilDAO = new PerfilDAO();
-//		Integer idDoPerfil = 1;
-//		LocalDate data = LocalDate.of(2020, 3, 16);
-//		perfilDAO.criarPerfilVazio(idDoPerfil, "RH");
-//		PerfilModel perfilAlterado = perfilDAO.alterarInicioValidadePerfil(idDoPerfil, data);
-//		assertEquals(data, perfilAlterado.getInicioValidadePerfil());
-//	}
-//	
-//	@Test
-//	public void verificaSeADataDeFimDoPerfilFoiAlteradaDAO() {
-//		PerfilDAO perfilDAO = new PerfilDAO();
-//		Integer idDoPerfil = 1;
-//		LocalDate data = LocalDate.of(2020, 3, 16);
-//		perfilDAO.criarPerfilVazio(idDoPerfil, "RH");
-//		PerfilModel perfilAlterado = perfilDAO.alterarFimValidadePerfil(idDoPerfil, data);
-//		assertEquals(data, perfilAlterado.getFimValidadePerfil());
-//	}
-//	
-//	@Test
-//	public void verificaSeOEstadoDeAtividadeDoPerfilFoiAlteradoDAO() {
-//		PerfilDAO perfilDAO = new PerfilDAO();
-//		Integer idDoPerfil = 1;
-//		boolean estadoPerfil = true;
-//		perfilDAO.criarPerfilVazio(idDoPerfil, "RH");
-//		PerfilModel perfilAlterado = perfilDAO.alterarPerfilAtivo(idDoPerfil, estadoPerfil);
-//		assertEquals(estadoPerfil, perfilAlterado.isPerfilAtivo());
-//	}
-	
 }
