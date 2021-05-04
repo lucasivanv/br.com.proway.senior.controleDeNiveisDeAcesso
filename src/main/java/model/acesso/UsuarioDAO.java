@@ -3,18 +3,26 @@ package model.acesso;
 import java.util.ArrayList;
 import model.interfaces.InterfaceUsuarioDAO;
 
-public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
-
 /**
+ * Classe UsuarioDAO
  * 
- * @author Vitor Peres
- * @author David Willian
- * @author Leonardo Pereira
- * vitor.peres@senior.com.br
- * leonardo.pereira@senior.com.br
- * david.oliveira@senior.com.br
+ * Classe que implementa a interface que se relaciona com o banco de dados de
+ * usuarios
  * 
+ * @author Sprint 3
+ * @author David Willian, david.oliveira@senior.com.br
+ * @author Leonardo Pereira, leonardo.pereira@senior.com.br
+ * @author Vitor Peres, vitor.peres@senior.com.br
+ * 
+ * @author Sprint 4
+ * @author Elton Oliveira, elton.oliveira@senior.com.br
+ * @author Lucas Ivan, lucas.ivan@senior.com.br
+ * @author Thiago Barbieri, thiago.barbieri@senior.com.br
+ * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
+ * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
+
+public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 
 	public ArrayList<UsuarioModel> user = new ArrayList<UsuarioModel>();
 
@@ -22,7 +30,10 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	 * Cria usuário novo.
 	 * 
 	 * Recebe objeto e adiciona no ArrayList<Usuario> user da classe UsuarioDAO
-	 * @param UsuarioModel novoUser como parâmetro para o DAO adicionar na lista de usuarios.
+	 * 
+	 * @param UsuarioModel novoUser como parâmetro para o DAO adicionar na lista de
+	 *                     usuarios.
+	 * @return void
 	 */
 	public void create(UsuarioModel novoUsuario) {
 		UsuarioModel user = novoUsuario;
@@ -44,11 +55,12 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Atualiza objeto usuario na lista de usuarios da classe UsuarioDAO
 	 * 
-	 * @param UsuarioModel usuario atualizado que substitui objeto na lista de usuarios
+	 * @param UsuarioModel usuario atualizado que substitui objeto na lista de
+	 *                     usuarios
 	 * @return Boolean true apos atualizacao
 	 */
 	public boolean update(UsuarioModel usuarioAtualizado) {
@@ -65,20 +77,23 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 
 		return user;
 	}
+
 	/**
 	 * Método que remove usuario da lista de usuarios.
 	 * 
-	 * Recebe id do usuario a ser removido, percorre arraylist e remove pelo id igual.
+	 * Recebe id do usuario a ser removido, percorre arraylist e remove pelo id
+	 * igual.
+	 * 
 	 * @param int id do usuario a ser removido.
-	 *
+	 * @return void *
 	 */
 	public void remove(int id) {
-		for (int i =0; i< user.size();i++) {
-			if(user.get(i).getIdDoUsuario() == id) {
+		for (int i = 0; i < user.size(); i++) {
+			if (user.get(i).getIdDoUsuario() == id) {
 				user.remove(i);
 			}
 		}
-		
+
 	}
 
 }

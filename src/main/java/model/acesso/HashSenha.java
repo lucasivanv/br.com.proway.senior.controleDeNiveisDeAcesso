@@ -5,18 +5,26 @@ import java.security.MessageDigest;
 
 import model.interfaces.InterfaceHashSenha;
 
+/**
+ * Classe HashSenha
+ * 
+ * Classe responsável pela conversao da senha em hashSenha
+ * 
+ * @author Sprint 3
+ * @author Leonardo Pereira, leonardo.pereira@senior.com.br
+ */
+
 public class HashSenha {
-	/***
+
+	/**
 	 * Criptografia para sennha.
 	 * 
-	 * 
-	 * Neste método esta sendo utilizado uma API do java "BigInteger" para gerar um algoritmo
-	 * para realizar a HASH da senha utilizando criptografia SHA-512.
+	 * Neste método esta sendo utilizado uma API do java "BigInteger" para gerar um
+	 * algoritmo para realizar a HASH da senha utilizando criptografia SHA-512.
 	 *
 	 * @param String senha
 	 * @return valorCodificado
 	 */
-
 	public static String senhaDoUsuario(String senha) {
 		String valorCodificado = null;
 		try {
