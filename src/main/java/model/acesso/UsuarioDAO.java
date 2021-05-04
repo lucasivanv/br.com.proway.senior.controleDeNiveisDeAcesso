@@ -23,7 +23,7 @@ import model.interfaces.InterfaceUsuarioDAO;
  * @author Elton Oliveira, elton.oliveira@senior.com.br
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Thiago Barbieri, thiago.barbieri@senior.com.br
- * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
+ * @author Vitor GonÃ§alves, vitor.goncalves@senior.com.br
  * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 
@@ -31,27 +31,24 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 
 	public ArrayList<UsuarioModel> user = new ArrayList<UsuarioModel>();
 	
-
 	/**
-	 * Cria usuário novo.
+	 * Cria usuÃ¡rio novo.
 	 * 
 	 * Recebe objeto e adiciona no ArrayList<Usuario> user da classe UsuarioDAO
 	 * 
-	 * @param UsuarioModel novoUser como parâmetro para o DAO adicionar na lista de
+	 * @param UsuarioModel novoUser como parÃ¢metro para o DAO adicionar na lista de
 	 *                     usuarios.
 	 * @return void
 	 */
-	
-	public DBConnection db;
-	
+		
 	public UsuarioDAO() {
 		db = DBConnection.getInstance();
 	}
 
 	/**
-	 * Método criarUsuario
+	 * MÃ©todo criarUsuario
 	 * 
-	 * Método responsável por inserir um usuário no banco de dados conforme
+	 * MÃ©todo responsÃ¡vel por inserir um usuÃ¡rio no banco de dados conforme
 	 * atributos associados
 	 * 
 	 * @param hashSenha    String
@@ -72,9 +69,9 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Método deletarUsuario
+	 * MÃ©todo deletarUsuario
 	 * 
-	 * Método responsável por deletar um usuário existente no banco de dados a
+	 * MÃ©todo responsÃ¡vel por deletar um usuÃ¡rio existente no banco de dados a
 	 * partir do id informado
 	 * 
 	 * @param idUsuario Integer
@@ -92,9 +89,9 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 	
 	/**
-	 * Método deletarUsuario
+	 * MÃ©todo deletarUsuario
 	 * 
-	 * Método responsável por deletar um usuário existente no banco de dados a
+	 * MÃ©todo responsÃ¡vel por deletar um usuÃ¡rio existente no banco de dados a
 	 * partir do nome.
 	 * 
 	 * @param idUsuario Integer
@@ -113,7 +110,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Atualiza um usuário no banco de dados.
+	 * Atualiza um usuÃ¡rio no banco de dados.
 	 * 
 	 * @param idUsuario Integer
 	 * @param usuario   UsuarioModel
@@ -132,10 +129,10 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Busca um usuário no banco de dados a partir de seu idUsuario
+	 * Busca um usuÃ¡rio no banco de dados a partir de seu idUsuario
 	 * 
 	 * @param idUsuario
-	 * @return o usuário caso true / null caso exception
+	 * @return o usuÃ¡rio caso true / null caso exception
 	 */
 	public UsuarioModel buscarUsuario(Integer idUsuario) {
 		ArrayList<String> resultado = new ArrayList<String>();
@@ -158,10 +155,10 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	
 	
 	/**
-	 * M�todo buscarPermissao
+	 * Método buscarPermissao
 	 * 
-	 * M�todo respons�vel por buscar, atrav�s do nome, uma permiss�o dentro do banco de dados. 
-	 * Se a permissao existe, retorna a mesma. Se n�o, retorna nulo.
+	 * Método responsável por buscar, através do nome, uma permissão dentro do banco de dados. 
+	 * Se a permissao existe, retorna a mesma. Se não, retorna nulo.
 	 * 
 	 * @param nomeDaPermissao String
 	 * @return PermissaoModel
@@ -193,7 +190,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	
 
 	/**
-	 * Lista todos os usuários do banco, retornando seus dados.
+	 * Lista todos os usuÃ¡rios do banco, retornando seus dados.
 	 * 
 	 * 
 	 * @return
