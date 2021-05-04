@@ -6,22 +6,28 @@ import java.util.ArrayList;
 /**
  * Classe PerfilModel
  * 
- * Defini os atributos necess·rios para instanciar um perfil,
- * o que È constituÌdo por permissıes.
+ * Defini os atributos necess√°rios para instanciar um perfil, o que √©
+ * constitu√≠do por permiss√µes.
  * 
+ * @author Sprint 3
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Sarah Brito, sarah.brito@senior.com.br
- *
+ * 
+ * @author Sprint 4
+ * @author Elton Oliveira, elton.oliveira@senior.com.br
+ * @author Lucas Ivan, lucas.ivan@senior.com.br
+ * @author Thiago Barbieri, thiago.barbieri@senior.com.br
+ * @author Vitor Gon√ßalves, vitor.goncalves@senior.com.br
+ * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 public class PerfilModel {
-	
+
 	private Integer idDoPerfil;
 	private String nomeDoPerfil;
-	//private ArrayList<PermissaoModel> listaDePermissoesDoPerfil = new ArrayList<PermissaoModel>();
 	private LocalDate inicioValidadePerfil = LocalDate.of(1970, 1, 1);
 	private LocalDate fimValidadePerfil = LocalDate.of(2200, 1, 1);
 	private boolean perfilAtivo = true;
-	
+
 	public boolean isPerfilAtivo() {
 		return perfilAtivo;
 	}
@@ -62,51 +68,41 @@ public class PerfilModel {
 		this.nomeDoPerfil = nomeDoPerfil;
 	}
 
-//	public ArrayList<PermissaoModel> getListaDePermissoesDoPerfil() {
-//		return listaDePermissoesDoPerfil;
-//	}
-//
-//	public void setListaDePermissoesDoPerfil(ArrayList<PermissaoModel> listaDePermissoesDoPerfil) {
-//		this.listaDePermissoesDoPerfil = listaDePermissoesDoPerfil;
-//	}
-	
-	
-	public PerfilModel(Integer idDoPerfil, String nomeDoPerfil,
-			LocalDate inicioValidadePerfil, LocalDate fimValidadePerfil, boolean perfilAtivo) {
+	public PerfilModel(Integer idDoPerfil, String nomeDoPerfil, LocalDate inicioValidadePerfil,
+			LocalDate fimValidadePerfil, boolean perfilAtivo) {
 		this.idDoPerfil = idDoPerfil;
 		this.nomeDoPerfil = nomeDoPerfil;
-//		this.listaDePermissoesDoPerfil = listaDePermissoesDoPerfil;
 		this.inicioValidadePerfil = inicioValidadePerfil;
 		this.fimValidadePerfil = fimValidadePerfil;
 		this.perfilAtivo = perfilAtivo;
 	}
-	
+
 	/**
 	 * Construtor da classe PerfilModel.
 	 * 
-	 * N„o engloba os atributos inicioValidadePerfil, fimValidadePerfil e perfilAtivo, criando um 
-	 * perfil permanente (sem validade).
-	 * @param idDoPerfil Integer
+	 * N√£o engloba os atributos inicioValidadePerfil, fimValidadePerfil e
+	 * perfilAtivo, criando um perfil permanente (sem validade).
+	 * 
+	 * @param idDoPerfil   Integer
 	 * @param nomeDoPerfil String
-	 * @param listaDePermissoesDoPerfil ArrayList<PermissaoModel>
 	 */
 	public PerfilModel(Integer idDoPerfil, String nomeDoPerfil) {
 		this.idDoPerfil = idDoPerfil;
 		this.nomeDoPerfil = nomeDoPerfil;
-		//this.listaDePermissoesDoPerfil = listaDePermissoesDoPerfil;
 	}
-	
-	
+
 	/**
 	 * Construtor da classe PerfilModel
 	 * 
-	 * N„o engloba os atributos idPerfil e listaDePermissoesDoPerfil.
+	 * N√£o engloba os atributos idPerfil e listaDePermissoesDoPerfil.
+	 * 
 	 * @param nomeDoPerfil
 	 * @param inicioValidadePerfil
 	 * @param fimValidadePerfil
 	 * @param perfilAtivo
 	 */
-	public PerfilModel(String nomeDoPerfil,	LocalDate inicioValidadePerfil, LocalDate fimValidadePerfil, boolean perfilAtivo) {
+	public PerfilModel(String nomeDoPerfil, LocalDate inicioValidadePerfil, LocalDate fimValidadePerfil,
+			boolean perfilAtivo) {
 		this.nomeDoPerfil = nomeDoPerfil;
 		this.inicioValidadePerfil = inicioValidadePerfil;
 		this.fimValidadePerfil = fimValidadePerfil;

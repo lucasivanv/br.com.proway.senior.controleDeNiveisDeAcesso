@@ -2,41 +2,66 @@ package model.acesso;
 
 import java.util.ArrayList;
 
+/**
+ * Classe UsuarioModel
+ * 
+ * Recebe os atributos necessários para instanciar um usuario
+ * 
+ * @author Sprint 3
+ * @author David Willian, david.oliveira@senior.com.br
+ * @author Leonardo Pereira, leonardo.pereira@senior.com.br
+ * @author Vitor Peres, vitor.peres@senior.com.br
+ * 
+ * @author Sprint 4
+ * @author Elton Oliveira, elton.oliveira@senior.com.br
+ * @author Lucas Ivan, lucas.ivan@senior.com.br
+ * @author Thiago Barbieri, thiago.barbieri@senior.com.br
+ * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
+ * @author Vitor Gehrke, vitor.gehrke@senior.com.br
+ */
 public class UsuarioModel {
 
-	private int idDoUsuario;
+	
+
+	private int idUsuario;
 	private String loginDoUsuario;
 	private String hashSenhaDoUsuario;
-	private ArrayList<PerfilModel> listaDePerfisDoUsuario = new ArrayList<PerfilModel>();
-
-	public UsuarioModel(int idDoUsuario, String loginDoUsuario, String hashSenhaDoUsuario,
-			ArrayList<PerfilModel> listaDePerfisDoUsuario) {
+	
+	/**
+	 * Modelo para o banco de dados na tabela usuariostabela
+	 * @param hashSenhaDoUsuario
+	 * @param loginDoUsuario
+	 */
+	public UsuarioModel(String hashSenhaDoUsuario, String loginDoUsuario) {
+		this.hashSenhaDoUsuario = hashSenhaDoUsuario;
+		this.loginDoUsuario = loginDoUsuario;
+	}
+		
+	public UsuarioModel(int idUsuario, String hashSenhaDoUsuario, String loginDoUsuario) {
 		super();
-		this.idDoUsuario = idDoUsuario;
+		this.idUsuario = idUsuario;
 		this.loginDoUsuario = loginDoUsuario;
 		this.hashSenhaDoUsuario = hashSenhaDoUsuario;
-		this.listaDePerfisDoUsuario = listaDePerfisDoUsuario;
 	}
 	
+	@Override
+	public String toString() {
+		return "UsuarioModel [idUsuario=" + idUsuario + ", loginDoUsuario=" + loginDoUsuario + ", hashSenhaDoUsuario="
+				+ hashSenhaDoUsuario + "]";
+
+	}
+
 	public UsuarioModel() {
 		 
 	}
 
-	public ArrayList<PerfilModel> getListaDePerfisDoUsuario() {
-		return listaDePerfisDoUsuario;
-	}
-
 	public int getIdDoUsuario() {
-		return idDoUsuario;
+		return idUsuario;
 	}
 
 	public void setIdDoUsuario(int id) {
-		this.idDoUsuario = id;
+		this.idUsuario = id;
 	}	
-
-	public void setListaDePerfisDoUsuario(ArrayList<PerfilModel> listaDePerfisDoUsuario) {
-		this.listaDePerfisDoUsuario = listaDePerfisDoUsuario;
-	}
 
 	public String getLoginDoUsuario() {
 		return loginDoUsuario;

@@ -2,8 +2,9 @@ package model.interfaces;
 
 import java.util.ArrayList;
 
+import model.acesso.UsuarioModel;
+
 /**
- * 
  * @author Vitor Peres
  * @author David Willian
  * @author Leonardo Pereira
@@ -11,11 +12,17 @@ import java.util.ArrayList;
  * leonardo.pereira@senior.com.br
  * david.oliveira@senior.com.br
  * 
+ * ver 2 - integra��o com PostgreSQL + JDBC
  */
 public interface InterfaceUsuarioDAO<T> {
-	ArrayList<T> getAll();
-	void create(T item);
-	T get (int id);
-	boolean update (T item);
-	void remove (int id);
+	public boolean criarUsuario(String hashSenha, String loginUsuario);
+	
+	public boolean deletarUsuario(Integer idUsuario);
+	
+	public boolean atualizarUsuario(Integer idUsuario, UsuarioModel usuario);
+	
+	public UsuarioModel buscarUsuario(Integer idUsuario);
+	
+	public ArrayList<UsuarioModel> buscarTodosUsuarios();
+	
 }
