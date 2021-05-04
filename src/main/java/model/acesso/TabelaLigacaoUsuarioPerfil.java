@@ -22,6 +22,7 @@ public class TabelaLigacaoUsuarioPerfil {
 		try {
 			ResultSet rs = db.executeQuery("select * from perfilLigacaoTabela where idUsuario=" + idUsuario + ";");
 			while(rs.next()) {
+				System.out.println(rs.toString());
 				PerfilModel pm = pc.buscarPerfil(rs.getInt(2));
 				resultado.add(pm);
 			}
