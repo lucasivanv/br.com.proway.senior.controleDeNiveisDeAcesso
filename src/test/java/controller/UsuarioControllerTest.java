@@ -8,33 +8,43 @@ import org.junit.Test;
 
 import controller.UsuarioController;
 import model.acesso.HashSenha;
+import model.acesso.PerfilDAO;
 import model.acesso.PerfilModel;
 import model.acesso.PermissaoModel;
+import model.acesso.UsuarioDAO;
 import model.acesso.UsuarioModel;
 
 /**
+ * @author Sprint 3
+ * @author David Willian, david.oliveira@senior.com.br
+ * @author Leonardo Pereira, leonardo.pereira@senior.com.br
+ * @author Vitor Peres, vitor.peres@senior.com.br
  * 
- * @author Vitor Peres
- * @author David Willian
- * @author Leonardo Pereira
- * vitor.peres@senior.com.br
- * leonardo.pereira@senior.com.br
- * david.oliveira@senior.com.br
- * 
+ * @author Sprint 4
+ * @author Lucas Ivan, lucas.ivan@senior.com.br
  */
 public class UsuarioControllerTest {
 	
 	@Test
-	public void testeCriarNovoUsuario() {
+	public void criarNovoUsuario() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		
+		usuarioDAO.db.limparDB("usuariostabela");		
+		
 		UsuarioController userControl = new UsuarioController();
-		String senha = "Aa12345678/";
-		UsuarioModel um = userControl.criarUsuarioModel(0, "abc@test.com.br", senha);
-		assertEquals(um.getHashSenhaDoUsuario(), "ac28bd3afad70aa"
-				+ "d355697ac144f1f90786f8de54cd5336aeffec2b6940"
-				+ "fe9171d5a9fe776f98c188d0e28c1dfbfa6cae54d0"
-				+ "c97473c3d57a21b358aaf5d15ec");
-		assertEquals(um.getIdDoUsuario(), 0);
-		assertEquals(um.getLoginDoUsuario(), "abc@test.com.br");
+		
+		assertTrue(userControl.criarUsuarioController(0, "abc@test.com.br", "Aa12345678/"));
+	}
+	
+	@Test
+	public void testeFalhaAoCriarNovoUsuarioPoisSenhaInadequada() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		
+		usuarioDAO.db.limparDB("usuariostabela");		
+		
+		UsuarioController userControl = new UsuarioController();
+		
+		assertFalse(userControl.criarUsuarioController(0, "abc@test.com.br", "a12345678/"));
 	}
 
 	@Test

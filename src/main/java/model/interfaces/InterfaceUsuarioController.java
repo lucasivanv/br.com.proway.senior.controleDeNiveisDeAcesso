@@ -14,6 +14,6 @@ public interface InterfaceUsuarioController {
 
 	public String enviarEmail(String loginDoUsuario);
 
-	public boolean alteraSenha(int id, String senhaNova);
+	public boolean alteraSenha(Integer id, String senhaNova);
 
 }

@@ -10,9 +10,13 @@ import model.acesso.PermissaoModel;
  * 
  * Classe responsável pelas validações e verificações das entradas e saídas
  * 
+ * @author Sprint 3
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Sarah Brito, sarah.brito@senior.com.br
- *
+ * 
+ * @author Sprint 4
+ * @author Thiago Barbieri, thiago.barbieri@senior.com.br
+ * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
  */
 
 public class PermissaoController {
