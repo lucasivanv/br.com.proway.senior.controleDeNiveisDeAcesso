@@ -1,5 +1,8 @@
 package model.interfaces;
 
+import model.acesso.PermissaoModel;
+import model.acesso.UsuarioModel;
+
 /**
  * @author Sprint 3
  * @author David Willian, david.oliveira@senior.com.br
@@ -8,6 +11,17 @@ package model.interfaces;
  */
 public interface InterfaceUsuarioController {
 
+	
+	public boolean criarUsuario(String hashSenha, String login);
+	
+	public boolean deletarUsuario(Integer idDUsuario);
+	
+	public boolean deletarUsuarioLogin(String login);
+	
+	public UsuarioModel buscarUsuario(Integer idUsuario);
+	
+	
+	
 	public boolean validarEmail(String email);
 
 	public boolean validarSenha(String senha);
