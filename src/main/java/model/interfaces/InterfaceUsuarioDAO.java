@@ -2,21 +2,27 @@ package model.interfaces;
 
 import java.util.ArrayList;
 
+import model.acesso.UsuarioModel;
+
 /**
- * @author Sprint 3 
- * @author David Willian, david.oliveira@senior.com.br
- * @author Leonardo Pereira, leonardo.pereira@senior.com.br
- * @author Vitor Peres, vitor.peres@senior.com.br
+ * @author Vitor Peres
+ * @author David Willian
+ * @author Leonardo Pereira
+ * vitor.peres@senior.com.br
+ * leonardo.pereira@senior.com.br
+ * david.oliveira@senior.com.br
+ * 
+ * ver 2 - integra��o com PostgreSQL + JDBC
  */
 public interface InterfaceUsuarioDAO<T> {
+	public boolean criarUsuario(String hashSenha, String loginUsuario);
 	
-	ArrayList<T> getAll();
+	public boolean deletarUsuario(Integer idUsuario);
 	
-	void create(T item);
+	public boolean atualizarUsuario(Integer idUsuario, UsuarioModel usuario);
 	
-	T get (int id);
+	public UsuarioModel buscarUsuario(Integer idUsuario);
 	
-	boolean update (T item);
+	public ArrayList<UsuarioModel> buscarTodosUsuarios();
 	
-	void remove (int id);
 }
