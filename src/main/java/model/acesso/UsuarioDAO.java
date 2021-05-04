@@ -44,6 +44,9 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	 *                     usuarios.
 	 * @return void
 	 */
+	
+	public DBConnection db;
+	
 	public UsuarioDAO() {
 		db = DBConnection.getInstance();
 	}
@@ -86,6 +89,27 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 			db.executeUpdate(deletarUsuario);
 			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	/**
+	 * M√©todo deletarUsuario
+	 * 
+	 * M√©todo respons√°vel por deletar um usu√°rio existente no banco de dados a
+	 * partir do nome.
+	 * 
+	 * @param idUsuario Integer
+	 * @return boolean
+	 */
+	
+	public boolean deletarUsuarioPorLogin(String login){
+		String deletarUsuarioPorLogin = "DELETE from usuariostabela where login='"+ login +"';";
+		try {
+			db.executeUpdate(deletarUsuarioPorLogin);
+			return true;
+		} catch(SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -134,6 +158,42 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 			return null;
 		}
 	}
+	
+	
+	/**
+	 * MÈtodo buscarPermissao
+	 * 
+	 * MÈtodo respons·vel por buscar, atravÈs do nome, uma permiss„o dentro do banco de dados. 
+	 * Se a permissao existe, retorna a mesma. Se n„o, retorna nulo.
+	 * 
+	 * @param nomeDaPermissao String
+	 * @return PermissaoModel
+	 */
+	public UsuarioModel buscarPorLoginUsuario(String login) {
+		ArrayList<String> resultado = new ArrayList<String>();
+		String buscarUsuario = "SELECT * from usuariostabela where login='"+ login+"';";
+		try {
+			ResultSet rs = db.executeQuery(buscarUsuario);
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int totalColunas = rsmd.getColumnCount();
+			if(rs.next()) {
+				for (int i = 1; i <= totalColunas; i ++) {
+					resultado.add(rs.getString(i));
+				}
+			}
+			if(!resultado.isEmpty()) {
+				return new UsuarioModel(Integer.parseInt(resultado.get(0)), resultado.get(1), resultado.get(2));
+			} else {
+				return null;
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 
 	/**
 	 * Lista todos os usu√°rios do banco, retornando seus dados.
