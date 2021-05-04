@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import db.DBConnection;
+
 /**
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Sarah Brito, sarah.brito@senior.com.br
@@ -22,8 +24,6 @@ public class PermissaoDAOTest {
 		PermissaoDAO permissaoDAO = new PermissaoDAO();
 		permissaoDAO.deletarPermissao(3);
 	}
-	
-	
 	
 	@Test
 	public void buscarPermissaoNoBancoDeDados() {

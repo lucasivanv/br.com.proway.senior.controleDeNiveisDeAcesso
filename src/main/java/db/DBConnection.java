@@ -69,6 +69,14 @@ public class DBConnection {
 		return null;
 	}
 	
+	public void limparDB(String nomeTabela) {
+		String limparTabela = "delete from "+ nomeTabela +";";
+		try {
+			dbConnection.executeUpdate(limparTabela);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

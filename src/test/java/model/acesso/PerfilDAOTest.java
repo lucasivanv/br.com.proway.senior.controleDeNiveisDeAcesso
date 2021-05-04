@@ -34,8 +34,8 @@ public class PerfilDAOTest {
 	@Test
 	public void atualizarPerfilNoBancoDeDados() {
 		PerfilDAO perfilDAO = new PerfilDAO();
-		PerfilModel pm = new PerfilModel("Teste", LocalDate.of(2015,5,25), LocalDate.of(2022, 4, 13), true);
-		perfilDAO.atualizarPerfil(4, pm);
+		PerfilModel pm = new PerfilModel("TesteAtt", LocalDate.of(2015,5,25), LocalDate.of(2022, 4, 13), false);
+		perfilDAO.atualizarPerfil(3, pm);
 	}
 	
 	@Test
@@ -48,7 +48,7 @@ public class PerfilDAOTest {
 	@Test
 	public void buscarPerfilPornomePerfil() {
 		PerfilDAO perfilDAO = new PerfilDAO();
-		PerfilModel perfilModel = perfilDAO.buscarPerfilPorNomePerfil("RH");
+		PerfilModel perfilModel = perfilDAO.buscarPerfilPorNomePerfil("Temp");
 		System.out.println(perfilModel.toString());
 	}
 	
