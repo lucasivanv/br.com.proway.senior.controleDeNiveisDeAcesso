@@ -9,20 +9,21 @@ import java.sql.Statement;
 /**
  * Classe DBConnection
  * 
- * Classe responsável pela conexão com o banco de dados (DB)
+ * Classe responsï¿½vel pela conexï¿½o com o banco de dados (DB)
  * 
  * @author Sprint 4
  * @author Elton Oliveira, elton.oliveira@senior.com.br
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Thiago Barbieri, thiago.barbieri@senior.com.br
- * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
+ * @author Vitor Gonï¿½alves, vitor.goncalves@senior.com.br
  * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 public class DBConnection {
 
-	static String url = "jdbc:postgresql://localhost:5432/Grupo3";
-	static String user = "Grupo3";
-	static String password = "admin";
+	static String url = "jdbc:postgresql://localhost:5432/grupo3";
+	static String user = "grupo3";
+	static String password = "grupo3";
+
 	public static Connection con;
 
 	static DBConnection dbConnection = null;
@@ -39,7 +40,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * Método para conectar com o DB a partir dos atributos necessários (url, user e
+	 * Mï¿½todo para conectar com o DB a partir dos atributos necessï¿½rios (url, user e
 	 * password)
 	 * 
 	 * @return void
@@ -54,7 +55,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * Método que executa uma query
+	 * Mï¿½todo que executa uma query
 	 * 
 	 * @param query String
 	 * @throws SQLException
@@ -69,7 +70,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * Método que executa uma query
+	 * Mï¿½todo que executa uma query
 	 * 
 	 * @param query String
 	 * @throws SQLException
@@ -86,7 +87,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * Método que retorna a versao do DB
+	 * Mï¿½todo que retorna a versao do DB
 	 * 
 	 * @return String
 	 */
@@ -106,7 +107,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * Método que limpa uma tabela no DB
+	 * Mï¿½todo que limpa uma tabela no DB
 	 * 
 	 * @param nomeTabela String
 	 * @return void
