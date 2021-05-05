@@ -177,8 +177,10 @@ public class UsuarioController implements InterfaceUsuarioController {
 				return false;
 			}
 		} 
-		daoUsuario.criarUsuario(this.converterSenhaEmHashSenha(senha), loginDoUsuario);
-		return true;
+		if(validarSenha(senha)) {
+			return daoUsuario.criarUsuario(this.converterSenhaEmHashSenha(senha), loginDoUsuario);
+		} 
+		return false;
 	}
 	
 	/**
