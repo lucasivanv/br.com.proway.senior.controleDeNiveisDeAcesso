@@ -10,10 +10,23 @@ import model.acesso.UsuarioModel;
  */
 public interface InterfaceUsuarioController {
 
+	
+	public boolean criarUsuario(String hashSenha, String login);
+	
+	public boolean deletarUsuario(Integer idDUsuario);
+	
+	public boolean deletarUsuarioLogin(String login);
+	
+	public UsuarioModel buscarUsuario(Integer idUsuario);
+	
+	
+	
 	public boolean validarEmail(String email);
 
 	public boolean validarSenha(String senha);
 
 	public String enviarEmail(String loginDoUsuario);
+
+	public boolean alteraSenha(Integer id, String senhaNova);
 
 }

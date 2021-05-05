@@ -26,10 +26,32 @@ import model.acesso.UsuarioModel;
 public class UsuarioControllerTest {
 	
 	@Test
+	public void criarNovoUsuario() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		
+		usuarioDAO.db.limparDB("usuariostabela");		
+		
+		UsuarioController userControl = new UsuarioController();
+		
+		assertTrue(userControl.criarUsuarioController(0, "abc@test.com.br", "Aa12345678/"));
+	}
+	
+	@Test
+	public void testeFalhaAoCriarNovoUsuarioPoisSenhaInadequada() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		
+		usuarioDAO.db.limparDB("usuariostabela");		
+		
+		UsuarioController userControl = new UsuarioController();
+		
+		assertFalse(userControl.criarUsuarioController(0, "abc@test.com.br", "a12345678/"));
+	}
+
+	@Test
 	public void testeSeEmailValido() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setLoginDoUsuario("colaborador@empresa.com");
+		user.setLoginDoUsuario("vitorperes1104@gmail.com");
 		assertTrue(userControl.validarEmail(user.getLoginDoUsuario()));
 	}
 
@@ -37,7 +59,7 @@ public class UsuarioControllerTest {
 	public void testeSeEmailInvalido() {
 		UsuarioController userControl = new UsuarioController();
 		UsuarioModel user = new UsuarioModel();
-		user.setLoginDoUsuario("colaboradorempresa.com");
+		user.setLoginDoUsuario("vitorperes110gmail.com");
 		assertFalse(userControl.validarEmail(user.getLoginDoUsuario()));
 	}
 
@@ -72,130 +94,88 @@ public class UsuarioControllerTest {
 		UsuarioController userControl = new UsuarioController();
 		assertFalse(userControl.validarSenha("1Pa124126124131364346413523342433244143143131413311"));
 	}
-	
+
 	@Test
-	public void criarNovoUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		
-		usuarioDAO.db.limparDB("usuariostabela");		
-		
-		UsuarioController userController = new UsuarioController();
-		
-		assertTrue(userController.criarUsuarioController("abc@test.com.br", "Aa12345678/"));
+	public void testeAlteraSenhaComSenhaAnteriorNula() {
+		UsuarioController userControl = new UsuarioController();
+		UsuarioModel user = new UsuarioModel();
+		user.setIdDoUsuario(0);
+		user.setHashSenhaDoUsuario("");
+		userControl.daoUsuario.create(user);
+		userControl.alteraSenha(user.getIdDoUsuario(), "1Pabcde");
+		assertEquals("6d84bd7f79f63cc7f2f519547d5837d3920bbcf42db70"
+				+ "b4cd5bb0f22775b4d897ce9faefef9ad37aeee7e1320c0f0"
+				+ "fa5dcb0232eac6619213fc78d5e44808c48", user.getHashSenhaDoUsuario());
 	}
-	
+
 	@Test
-	public void testeFalhaAoCriarNovoUsuarioPoisSenhaInadequada() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		
-		usuarioDAO.db.limparDB("usuariostabela");		
-		
-		UsuarioController userController = new UsuarioController();
-		
-		assertFalse(userController.criarUsuarioController("def@test.com.br", "a78/"));
+	public void testeAlteraLogin() {
+		UsuarioController userControl = new UsuarioController();
+		UsuarioModel user = new UsuarioModel();
+		user.setLoginDoUsuario("vitorperes1104@gmail.com");
+		user.setIdDoUsuario(0);
+		userControl.daoUsuario.user.add(user);
+		userControl.alteraLogin(0, "dwillian676@gmail.com");
+		assertEquals("dwillian676@gmail.com", userControl.daoUsuario.get(0).getLoginDoUsuario());
 	}
-		
-	@Test
-	public void testeRemoveUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		
-		usuarioDAO.db.limparDB("usuariostabela");
-		
-		UsuarioController userController = new UsuarioController();
-		
-		userController.criarUsuarioController("colaborador1@empresa.com.br", "Jjhdfa82!78@1");
-		userController.criarUsuarioController("colaborador2@empresa.com.br", "DAMKmdsa46615#");
-		userController.criarUsuarioController("colaborador3@empresa.com.br", "DAMKmsa466@");
-	
-		assertTrue(userController.deletarUsuarioController(userController.daoUsuario.buscarPorLoginUsuario("colaborador2@empresa.com.br").getIdDoUsuario(), "colaborador2@empresa.com.br"));		
-	}
-	
-	@Test
-	public void testeAtualizaLoginUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		
-		usuarioDAO.db.limparDB("usuariostabela");
-		
-		UsuarioController userController = new UsuarioController();
-		
-		userController.criarUsuarioController("colaborador1@empresa.com.br", "Jjhdfa82!78@1");
-		userController.criarUsuarioController("colaborador2@empresa.com.br", "DAMKmdsa46615#");
-		userController.criarUsuarioController("colaborador3@empresa.com.br", "DAMKmsa466@");
-	
-		
-		int idUsuarioAtualizar = userController.daoUsuario.buscarPorLoginUsuario("colaborador2@empresa.com.br").getIdDoUsuario();
-		
-		UsuarioModel usuarioAtualizar = new UsuarioModel(userController.daoUsuario.buscarPorLoginUsuario("colaborador2@empresa.com.br").getHashSenhaDoUsuario(), "atualizado2@empresa.com.br");
-				
-		assertTrue(userController.atualizaUsuarioController(idUsuarioAtualizar, usuarioAtualizar));		
-	}	
-	
-	@Test
-	public void testeAtualizaSenhaUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		
-		usuarioDAO.db.limparDB("usuariostabela");
-		
-		UsuarioController userController = new UsuarioController();
-		
-		userController.criarUsuarioController("colaborador1@empresa.com.br", "Jjhdfa82!78@1");
-		userController.criarUsuarioController("colaborador2@empresa.com.br", "DAMKmdsa46615#");
-		userController.criarUsuarioController("colaborador3@empresa.com.br", "DAMKmsa466@");
-	
-		
-		int idUsuarioAtualizar = userController.daoUsuario.buscarPorLoginUsuario("colaborador2@empresa.com.br").getIdDoUsuario();
-		
-		UsuarioModel usuarioAtualizar = new UsuarioModel(userController.converterSenhaEmHashSenha("DAMKmdsa44415#"), "colaborador2@empresa.com.br");
-				
-		assertTrue(userController.atualizaUsuarioController(idUsuarioAtualizar, usuarioAtualizar));		
-	}	
-	
-	@Test
-	public void testeBuscarUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-
-		usuarioDAO.db.limparDB("usuariostabela");
-
-		UsuarioController userController = new UsuarioController();
-
-		userController.criarUsuarioController("colaborador1@empresa.com.br", "Jjhdfa82!78@1");
-		userController.criarUsuarioController("colaborador2@empresa.com.br", "DAMKmdsa46615#");
-		userController.criarUsuarioController("colaborador3@empresa.com.br", "DAMKmsa466@");
-
-		UsuarioModel usuarioBuscado = userController.buscarUsuarioController(userController.daoUsuario.buscarPorLoginUsuario("colaborador3@empresa.com.br").getIdDoUsuario());
-		
-		assertEquals(usuarioBuscado.getLoginDoUsuario(), "colaborador3@empresa.com.br");
-		assertEquals(usuarioBuscado.getHashSenhaDoUsuario(), userController.converterSenhaEmHashSenha("DAMKmsa466@"));
-	}
-	
-	@Test
-	public void testeBuscarTodosUsuarios() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-
-		usuarioDAO.db.limparDB("usuariostabela");
-
-		UsuarioController userController = new UsuarioController();
-
-		userController.criarUsuarioController("colaborador1@empresa.com.br", "Jjhdfa82!78@1");
-		userController.criarUsuarioController("colaborador2@empresa.com.br", "DAMKmdsa46615#");
-		userController.criarUsuarioController("colaborador3@empresa.com.br", "DAMKmsa466@");
-
-		ArrayList<UsuarioModel> listaDeUsuariosBuscados = userController.buscarTodosUsuariosController();
-		
-		assertEquals(listaDeUsuariosBuscados.size(),3);
-		assertEquals(listaDeUsuariosBuscados.get(0).getLoginDoUsuario(),"colaborador1@empresa.com.br");
-		assertEquals(listaDeUsuariosBuscados.get(1).getLoginDoUsuario(),"colaborador2@empresa.com.br");
-		assertEquals(listaDeUsuariosBuscados.get(2).getLoginDoUsuario(),"colaborador3@empresa.com.br");		
-	}
-	
-	
-	
-
 
 	@Test
 	public void testeGerarCodigo() {
 		UsuarioController userControl = new UsuarioController();
 		assertTrue(userControl.gerarCodigo());
+	}
+
+	@Test
+	public void testeAlteraPerfil() {
+
+		UsuarioController userControl = new UsuarioController();
+		UsuarioModel user = new UsuarioModel();
+
+		PermissaoModel permissaoNormal = new PermissaoModel(1, "Permissao alteração de perfil");
+		ArrayList<PermissaoModel> listaPermissaoNormal = new ArrayList<PermissaoModel>();
+		listaPermissaoNormal.add(permissaoNormal);
+		PermissaoModel permissaoTest = new PermissaoModel(2, "Permissao alterada Test");
+		ArrayList<PermissaoModel> listaPermissaoTest = new ArrayList<PermissaoModel>();
+		listaPermissaoTest.add(permissaoTest);
+
+		PerfilModel perfilNormal = new PerfilModel(1, "Teste", listaPermissaoNormal);
+		PerfilModel perfilTest = new PerfilModel(2, "Teste alterado", listaPermissaoTest);
+
+		ArrayList<PerfilModel> listaPerfilNormal = new ArrayList<PerfilModel>();
+		listaPerfilNormal.add(perfilTest);
+		ArrayList<PerfilModel> listaPerfilTest = new ArrayList<PerfilModel>();
+		listaPerfilTest.add(perfilTest);
+		
+		
+		user.setListaDePerfisDoUsuario(listaPerfilNormal);
+		userControl.daoUsuario.user.add(user);
+		userControl.alteraPerfil(0, listaPerfilTest);
+
+		assertEquals(perfilTest, userControl.daoUsuario.user.get(0).getListaDePerfisDoUsuario().get(0));
+	}
+
+
+	@Test
+	public void testeRemoveUsuario() {
+		UsuarioController userControl = new UsuarioController();
+		PermissaoModel permissao = new PermissaoModel(1, "Permissao alteração de perfil");
+		ArrayList<PermissaoModel> listaPermissao = new ArrayList<PermissaoModel>();
+		listaPermissao.add(permissao);
+
+		
+		PerfilModel perfilTest = new PerfilModel(1, "Perfil teste", listaPermissao);
+		
+		ArrayList<PerfilModel> listaPerfil = new ArrayList<PerfilModel>();
+		listaPerfil.add(perfilTest);
+
+		UsuarioModel userUm = new UsuarioModel(0, "vcperes@furb.br", "Va123456", listaPerfil);
+		UsuarioModel userDois = new UsuarioModel(1, "vitorperes1104@gmail.com", "Ca123456", listaPerfil);
+
+		userControl.daoUsuario.user.add(userUm);
+		userControl.daoUsuario.user.add(userDois);
+		userControl.daoUsuario.remove(0);
+	
+		assertEquals(1, userControl.daoUsuario.user.get(0).getIdDoUsuario());
 	}
 
 }

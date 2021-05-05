@@ -99,50 +99,50 @@ public class UsuarioController implements InterfaceUsuarioController {
 		}
 		return false;
 	}	
-//	
-//	/**
-//	 * Método que altera a senha do usuario
-//	 * 
-//	 * Verifica se a nova senha atende os critérios de senha segura e se a nova senha é diferente da senha atual.
-//	 * Recebe id e nova senha para alterar
-//	 * 
-//	 * @param int id do usuario procurado para alteraçao
-//	 * @param String senhaNova do usuario
-//	 */
-//	public boolean alteraSenha(Integer usuarioID, String senhaNova) {
-//
-//		if (this.validarSenha(senhaNova) && !this.verificarHashSenha(usuarioID, senhaNova)) {
-//
-//			daoUsuario.buscarUsuario(usuarioID).setHashSenhaDoUsuario(this.converterSenhaEmHashSenha(senhaNova));
-//
-//			daoUsuario.atualizarUsuario(usuarioID, daoUsuario.buscarUsuario(usuarioID));
-//			return true;
-//		}
-//		return false;
-//	}
-//	
-//	/**
-//	 * Método que altera o login do usuario
-//	 * 
-//	 * Recebe id e novo login para alterar
-//	 * 
-//	 * @param int id do usuario procurado para alteraçao
-//	 * @param String loginNovo do usuario
-//	 */
-//	public boolean alteraLogin(Integer usuarioID, String loginNovo) {
-//		
-//		if(this.validarEmail(loginNovo)) {
-//
-//			if(!daoUsuario.buscarUsuario(usuarioID).getLoginDoUsuario().equals(loginNovo)){
-//				
-//				daoUsuario.buscarUsuario(usuarioID).setHashSenhaDoUsuario(loginNovo);
-//				
-//				daoUsuario.atualizarUsuario(usuarioID, daoUsuario.buscarUsuario(usuarioID));
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	
+	/**
+	 * Método que altera a senha do usuario
+	 * 
+	 * Verifica se a nova senha atende os critérios de senha segura e se a nova senha é diferente da senha atual.
+	 * Recebe id e nova senha para alterar
+	 * 
+	 * @param int id do usuario procurado para alteraçao
+	 * @param String senhaNova do usuario
+	 */
+	public boolean alteraSenha(Integer usuarioID, String senhaNova) {
+
+		if (this.validarSenha(senhaNova) && !this.verificarHashSenha(usuarioID, senhaNova)) {
+
+			daoUsuario.buscarUsuario(usuarioID).setHashSenhaDoUsuario(this.converterSenhaEmHashSenha(senhaNova));
+
+			daoUsuario.atualizarUsuario(usuarioID, daoUsuario.buscarUsuario(usuarioID));
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Método que altera o login do usuario
+	 * 
+	 * Recebe id e novo login para alterar
+	 * 
+	 * @param int id do usuario procurado para alteraçao
+	 * @param String loginNovo do usuario
+	 */
+	public boolean alteraLogin(Integer usuarioID, String loginNovo) {
+		
+		if(this.validarEmail(loginNovo)) {
+
+			if(!daoUsuario.buscarUsuario(usuarioID).getLoginDoUsuario().equals(loginNovo)){
+				
+				daoUsuario.buscarUsuario(usuarioID).setHashSenhaDoUsuario(loginNovo);
+				
+				daoUsuario.atualizarUsuario(usuarioID, daoUsuario.buscarUsuario(usuarioID));
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	/**
 	 * Método que altera perfil do usuario.
@@ -170,7 +170,7 @@ public class UsuarioController implements InterfaceUsuarioController {
 	 *  @param senha String
 	 *  @return boolean
 	 */
-	public boolean criarUsuarioController(String loginDoUsuario, String senha) {
+	public boolean criarUsuarioController(Integer idDoUsuario, String loginDoUsuario, String senha) {
 				
 		for (UsuarioModel usuarioModel : daoUsuario.buscarTodosUsuarios()) {
 			if(usuarioModel.getLoginDoUsuario().equals(loginDoUsuario)) {
@@ -200,34 +200,21 @@ public class UsuarioController implements InterfaceUsuarioController {
 	}
 	
 	/**
-	 *  Atualiza um usuário de acordo com o login informado  
-	 *  
-	 *  @param idDoUsuario int
-	 *  @param loginDoUsuario String
-	 *  @return boolean
-	 */
-	public boolean atualizaUsuarioController(Integer idDoUsuario, UsuarioModel usuarioAtualizar) {
-		
-		if (daoUsuario.buscarUsuario(idDoUsuario) == null) {
-			return false;
-		} else {			
-					
-			return daoUsuario.atualizarUsuario(idDoUsuario, usuarioAtualizar);
-		}
-
-	}
-	
-	/**
 	 *  Busca um usuário de acordo com o login informado  
 	 *  
 	 *  @param idDoUsuario int
 	 *  @param loginDoUsuario String
 	 *  @return UsuarioModel
 	 */
-	public UsuarioModel buscarUsuarioController(Integer idDoUsuario) {
-				return daoUsuario.buscarUsuario(idDoUsuario);
-	}
+	public UsuarioModel buscarUsuarioController(Integer idDoUsuario, String loginDoUsuario) {
 		
+		for (UsuarioModel usuarioModel : daoUsuario.buscarTodosUsuarios()) {
+			if (usuarioModel.getLoginDoUsuario().equals(loginDoUsuario)) {
+				return daoUsuario.buscarUsuario(idDoUsuario);
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 *  Busca todos os usuarios cadastrados  
