@@ -28,6 +28,8 @@ import model.interfaces.InterfaceUsuarioDAO;
  */
 
 public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
+	
+	public DBConnection db;
 
 	public ArrayList<UsuarioModel> user = new ArrayList<UsuarioModel>();
 	
