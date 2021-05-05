@@ -22,15 +22,13 @@ import model.interfaces.InterfacePerfilDAO;
  * @author Elton Oliveira, elton.oliveira@senior.com.br
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Thiago Barbieri, thiago.barbieri@senior.com.br
- * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
+ * @author Vitor Goncalves, vitor.goncalves@senior.com.br
  * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 
 public class PerfilDAO implements InterfacePerfilDAO{
 	
 	public DBConnection db;
-	
-	private ArrayList<PerfilModel> listaDePerfisCriados = new ArrayList<PerfilModel>();
 	
 	/**
 	 * Método para conectar com o DB
@@ -40,9 +38,9 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}
 	
 	/**
-	 * Método criarPerfilVazio
+	 * Metodo criarPerfilVazio
 	 * 
-	 * Método responsável por criar um perfil vazio (sem permissoes), sem validade e ativo no banco de dados conforme
+	 * Metodo responsavel por criar um perfil vazio (sem permissoes), sem validade e ativo no banco de dados conforme
 	 * atributos associados
 	 * 
 	 * @param nomeDoPerfil String
@@ -66,12 +64,12 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}
 	
 	/**
-	 * Método criarPerfilVazioTemporario
+	 * Metodo criarPerfilVazioTemporario
 	 * 
-	 * Método responsável por criar um perfil vazio (sem permissoes), com validade e ativo no banco de dados conforme
+	 * Metodo responsavel por criar um perfil vazio (sem permissoes), com validade e ativo no banco de dados conforme
 	 * atributos associados
 	 * 
-	 * @param nomeDoPerfil String
+	 * @param perfil PerfilModel
 	 * @return boolean
 	 * 
 	 */
@@ -92,9 +90,9 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}
 	
 	/**
-	 * Método deletarPerfil
+	 * Metodo deletarPerfil
 	 * 
-	 * Método responsável por deletar um perfil existente no banco de dados a partir do
+	 * Metodo responsavel por deletar um perfil existente no banco de dados a partir do
 	 * id informado
 	 * 
 	 * @param idDoPerfil Integer
@@ -113,12 +111,12 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}	
 	
 	/**
-	 * Método deletarPerfil
+	 * Metodo deletarPerfil
 	 * 
-	 * Método responsável por deletar um perfil existente no banco de dados a partir do
-	 * id informado
+	 * Metodo responsável por deletar um perfil existente no banco de dados a partir do
+	 * nome informado do perfil
 	 * 
-	 * @param idDoPerfil Integer
+	 * @param nomeDoPerfil String
 	 * @return boolean
 	 * 
 	 */
@@ -134,12 +132,13 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}	
 	
 	/**
-	 * Método atualizar
+	 * Metodo atualizar
 	 * 
-	 * Método responsável por atualizar um perfil existente no banco de dados a partir do
+	 * Metodo responsavel por atualizar um perfil existente no banco de dados a partir do
 	 * id informado
 	 * 
 	 * @param idDoPerfil Integer
+	 * @param perfil PerfilModel
 	 * @return boolean
 	 * 
 	 */
@@ -157,10 +156,10 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}
 
 	/**
-	 * Método buscarPerfil
+	 * Metodo buscarPerfil
 	 * 
-	 * Método responsável por buscar, através do id, um perfil dentro de uma
-	 * lista de Perfis. Se o perfil existe, retorna o mesmo. Se não, retorna
+	 * Metodo responsável por buscar, através do id, um perfil dentro de uma
+	 * lista de Perfis. Se o perfil existe, retorna o mesmo. Se nao, retorna
 	 * nulo.
 	 * 
 	 * @param idDoPerfil Integer
@@ -189,10 +188,10 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}
 	
 	/**
-	 * Método buscarPerfil
+	 * Metodo buscarPerfil
 	 * 
-	 * Método responsável por buscar, através do nome do perfil, um perfil dentro de uma
-	 * lista de Perfis. Se o perfil existe, retorna o mesmo. Se não, retorna
+	 * Metodo responsavel por buscar, atraves do nome do perfil, um perfil dentro de uma
+	 * lista de Perfis. Se o perfil existe, retorna o mesmo. Se nao, retorna
 	 * nulo.
 	 * 
 	 * @param nomePerfil String
@@ -221,9 +220,9 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}
 	
 	/**
-	 * Método buscarPerfil
+	 * Metodo buscarPerfil
 	 * 
-	 * Método responsável por buscar, através do status, todos os perfis dentro de uma
+	 * Método responsavel por buscar, atraves do status, todos os perfis dentro de uma
 	 * lista de Perfis que possuem o mesmo status. 
 	 * 
 	 * @param status boolean
@@ -255,9 +254,9 @@ public class PerfilDAO implements InterfacePerfilDAO{
 	}
 	
 	/**
-	 * Método buscarTodosOsPerfis
+	 * Metodo buscarTodosOsPerfis
 	 * 
-	 * Método responsável por buscar todos os perfis dentro de uma
+	 * Metodo responsavel por buscar todos os perfis dentro de uma
 	 * lista de Perfis.
 	 *
 	 * @return ArrayList<PerfilModel>

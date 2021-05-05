@@ -38,6 +38,8 @@ public class PermissaoDAOTest {
 			ResultSet rs = permissaoDAO.db.executeQuery("select * from permissoestabela");
 			if(rs.next()) {
 				assertEquals("Remover", rs.getString(2));
+			} else {
+				fail("Banco não acessado");
 			}
 			
 		} catch (SQLException e) {
@@ -56,13 +58,18 @@ public class PermissaoDAOTest {
 			ResultSet rs = permissaoDAO.db.executeQuery("select max(idpermissao) from permissoestabela");
 			if(rs.next()) {
 				i = rs.getInt(1);
+			} else {
+				fail("Banco não acessado");
 			}
 			permissaoDAO.deletarPermissao(i);
 			
-			rs = permissaoDAO.db.executeQuery("select * from permissoestabela");	
-			rs.next();
-			assertTrue(Integer.parseInt(rs.getString(1)) < i);		
-			assertEquals(rs.getString(2), "Remover");	
+			rs = permissaoDAO.db.executeQuery("select * from permissoestabela");
+			if(rs.next()) {
+				assertTrue(Integer.parseInt(rs.getString(1)) < i);		
+				assertEquals(rs.getString(2), "Remover");
+			} else {
+				fail("Banco não acessado");
+			}
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
@@ -79,10 +86,12 @@ public class PermissaoDAOTest {
 			ResultSet rs = permissaoDAO.db.executeQuery("select max(idpermissao) from permissoestabela");
 			if(rs.next()) {
 				i = rs.getInt(1);
+				PermissaoModel pm = permissaoDAO.buscarPermissao(i);
+				assertTrue(pmteste.getNomeDaPermissao().equals(pm.getNomeDaPermissao()));	
+			} else {
+				fail("Banco não acessado");
 			}
-			PermissaoModel pm = permissaoDAO.buscarPermissao(i);
-			
-			assertTrue(pmteste.getNomeDaPermissao().equals(pm.getNomeDaPermissao()));		
+				
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
@@ -111,7 +120,6 @@ public class PermissaoDAOTest {
 		PermissaoModel pmteste3 = new PermissaoModel("Mover");
 		ArrayList<PermissaoModel> listaPMteste = new ArrayList<PermissaoModel>();
 		listaPMteste.addAll(Arrays.asList(pmteste1, pmteste2, pmteste3));
-		int i = 0;
 		
 		ArrayList<PermissaoModel> listaPM = permissaoDAO.buscarTodasAsPermissoes();
 		
@@ -126,13 +134,15 @@ public class PermissaoDAOTest {
 		permissaoDAO.db.limparDB("permissoestabela");
 		permissaoDAO.criarPermissao("Remover");
 		permissaoDAO.criarPermissao("Remover2");
-		int i = 0;
 		try {
 			permissaoDAO.deletarPermissao("Remover2");
 			
 			ResultSet rs = permissaoDAO.db.executeQuery("select * from permissoestabela");	
-			rs.next();
-			assertEquals(rs.getString(2), "Remover");	
+			if(rs.next()) {
+				assertEquals(rs.getString(2), "Remover");
+			} else {
+				fail("Banco não acessado");
+			}
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
@@ -149,6 +159,8 @@ public class PermissaoDAOTest {
 			ResultSet rs = permissaoDAO.db.executeQuery("select max(idpermissao) from permissoestabela");
 			if(rs.next()) {
 				i = rs.getInt(1);
+			} else {
+				fail("Banco não acessado");
 			}
 			permissaoDAO.atualizarPermissao(i, pm);
 			assertEquals(permissaoDAO.buscarPermissao(i).getNomeDaPermissao(), "Adicionar");

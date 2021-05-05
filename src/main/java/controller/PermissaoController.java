@@ -8,15 +8,17 @@ import model.acesso.PermissaoModel;
 /**
  * Classe PermissaoController
  * 
- * Classe responsável pelas validações e verificações das entradas e saídas
+ * Classe responsavel pelas validacoes e verificacoes das entradas e saidas
  * 
  * @author Sprint 3
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Sarah Brito, sarah.brito@senior.com.br
  * 
  * @author Sprint 4
+ * @author Vitor Nathan Goncalves, vitor.goncalves@senior.com.br
+ * @author Elton Francisco de Oliveira, elton.oliveira@senior.com.br
+ * @author Vitor Andre Gehrke, vitor.gehrke@senior.com.br
  * @author Thiago Barbieri, thiago.barbieri@senior.com.br
- * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
  */
 
 public class PermissaoController {
@@ -32,10 +34,10 @@ public class PermissaoController {
 	}
 
 	/**
-	 * Método criarPermissaoController
+	 * Metodo criarPermissaoController
 	 * 
-	 * Método responsável pela criação da permissão, verificando previamente se a mesma 
-	 * já existe na lista de permissões cadastradas. 
+	 * Metodo responsavel pela criacao da permissao, verificando previamente se a mesma 
+	 * ja existe na lista de permissoes cadastradas. 
 	 * 
 	 * @param idDaPermissao Integer
 	 * @param nomeDaPermissao String
@@ -53,33 +55,33 @@ public class PermissaoController {
 	}
 	
 	/**
-	 * Método deletarPermissaoController
+	 * Metodo deletarPermissaoController
 	 * 
-	 * Método realiza a exclusão da permissão conforme id informado
+	 * Metodo realiza a exclusão da permissao conforme id informado
 	 * 
 	 * @param idDaPermissao Integer
-	 * @return void
+	 * @return boolean
 	 */
 	public boolean deletarPermissaoController(Integer idDaPermissao) {
 		return dao.deletarPermissao(idDaPermissao);
 	}
 	
 	/**
-	 * Método deletarPermissaoController
+	 * Metodo deletarPermissaoController
 	 * 
-	 * Método realiza a exclusão da permissão conforme nome informado
+	 * Metodo realiza a exclusao da permissao conforme nome informado
 	 * 
-	 * @param idDaPermissao Integer
-	 * @return void
+	 * @param nomeDaPermissao String
+	 * @return boolean
 	 */
-	public void deletarPermissaoController(String nomeDaPermissao) {
-		dao.deletarPermissao(nomeDaPermissao);
+	public boolean deletarPermissaoController(String nomeDaPermissao) {
+		return dao.deletarPermissao(nomeDaPermissao);
 	}
 
 	/**
-	 * Método buscarTodasAsPermissoes
+	 * Metodo buscarTodasAsPermissoes
 	 * 
-	 * Método retorna a lista de permissões criadas
+	 * Metodo retorna a lista de permissoes criadas
 	 * 
 	 * @return ArrayList<PermissaoModel>
 	 */
@@ -88,9 +90,9 @@ public class PermissaoController {
 	}
 	
 	/**
-	 * Método buscarPermissao
+	 * Metodo buscarPermissao
 	 * 
-	 * Método retorna a permissao com o nome indicado
+	 * Metodo retorna a permissao com o nome indicado
 	 * @param nome String
 	 * @return PermissaoModel
 	 */
@@ -99,9 +101,9 @@ public class PermissaoController {
 	}
 	
 	/**
-	 * Método buscarPermissao
+	 * Metodo buscarPermissao
 	 * 
-	 * Método retorna a permissao com o id indicado
+	 * Metodo retorna a permissao com o id indicado
 	 * @param id Integer
 	 * @return PermissaoModel
 	 */
@@ -110,9 +112,9 @@ public class PermissaoController {
 	}
 	
 	/**
-	 * Método atualizarPermissao
+	 * Metodo atualizarPermissao
 	 * 
-	 * Atualiza uma permissão com base no id e na permissão atualizada.
+	 * Atualiza uma permissao com base no id e na permissão atualizada.
 	 * 
 	 * @param id Integer
 	 * @param novaPermissao PermissaoModel

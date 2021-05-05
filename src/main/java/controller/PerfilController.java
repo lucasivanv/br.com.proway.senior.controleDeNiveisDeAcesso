@@ -11,10 +11,15 @@ import model.acesso.PermissaoModel;
 /**
  * Classe PerfilController
  * 
- * Classe responsável pelas validações e verificações das entradas e saídas
+ * Classe responsavel pelas validações e verificacoes das entradas e saidas
  * 
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Sarah Brito, sarah.brito@senior.com.br
+ * 
+ * @author Vitor Nathan Goncalves, vitor.goncalves@senior.com.br
+ * @author Elton Francisco de Oliveira, elton.oliveira@senior.com.br
+ * @author Vitor Andre Gehrke, vitor.gehrke@senior.com.br
+ * @author Thiago Barbieri, thiago.barbieri@senior.com.br
  */
 
 public class PerfilController {
@@ -30,10 +35,10 @@ public class PerfilController {
 	}
 
 	/**
-	 * Método criarPerfilVazioController
+	 * Metodo criarPerfilVazioController
 	 * 
-	 * Método responsável pela criação do perfil vazio, verificando previamente se o
-	 * mesmo já existe na lista de perfis cadastrados.
+	 * Metodo responsavel pela criacao do perfil vazio, verificando previamente se o
+	 * mesmo ja existe na lista de perfis cadastrados.
 	 * 
 	 * @param idDoPerfil   Integer
 	 * @param nomeDoPerfil String
@@ -55,10 +60,10 @@ public class PerfilController {
 	}
 	
 	/**
-	 * Método criarPerfilVazioController
+	 * Método criarPerfilVazioTemporarioController
 	 * 
-	 * Método responsável pela criação do perfil vazio, verificando previamente se o
-	 * mesmo já existe na lista de perfis cadastrados.
+	 * Método responsavel pela criação do perfil vazio e temporario, verificando previamente se o
+	 * mesmo ja existe na lista de perfis cadastrados.
 	 * 
 	 * @param idDoPerfil   Integer
 	 * @param nomeDoPerfil String
@@ -80,9 +85,9 @@ public class PerfilController {
 	}
 
 	/**
-	 * Método deletarPerfilController
+	 * Metodo deletarPerfilController
 	 * 
-	 * Método realiza a exclusão do perfil conforme id informado
+	 * Metodo realiza a exclusao do perfil conforme id informado
 	 * 
 	 * @param idDoPerfil Integer
 	 * @return boolean
@@ -92,11 +97,11 @@ public class PerfilController {
 	}
 	
 	/**
-	 * Método deletarPerfilController
+	 * Metodo deletarPerfilController
 	 * 
-	 * Método realiza a exclusão do perfil conforme nomeInformado
+	 * Metodo realiza a exclusao do perfil conforme nome Informado
 	 * 
-	 * @param idDoPerfil Integer
+	 * @param nomeDoPerfil String
 	 * @return void
 	 */
 	public boolean deletarPerfilController(String nomeDoPerfil) {
@@ -104,9 +109,9 @@ public class PerfilController {
 	}
 	
 	/**
-	 * Método buscarPerfil
+	 * Metodo buscarPerfil
 	 * 
-	 * Método retorna o perfil que possui o id especificado
+	 * Metodo retorna o perfil que possui o id especificado
 	 * 
 	 * @param id Integer
 	 * @return PerfilModel
@@ -116,9 +121,9 @@ public class PerfilController {
 	}
 	
 	/**
-	 * Método buscarPerfil
+	 * Metodo buscarPerfil
 	 * 
-	 * Método retorna o perfil que possui o nome especificado
+	 * Metodo retorna o perfil que possui o nome especificado
 	 * 
 	 * @param nomeDoPerfil String
 	 * @return PerfilModel
@@ -128,9 +133,9 @@ public class PerfilController {
 	}
 
 	/**
-	 * Método buscarTodosOsPerfis
+	 * Metodo buscarTodosOsPerfis
 	 * 
-	 * Método retorna a lista de perfis criados
+	 * Metodo retorna a lista de perfis criados no banco de dados
 	 * 
 	 * @return ArrayList<PerfilModel>
 	 */
@@ -139,9 +144,9 @@ public class PerfilController {
 	}
 
 	/**
-	 * Método alterarNomePerfilController
+	 * Metodo alterarNomePerfilController
 	 * 
-	 * Método realiza a alteração do nome de um perfil conforme id informado
+	 * Metodo realiza a alteração do nome de um perfil conforme id informado
 	 * 
 	 * @param idDoPerfil     Integer
 	 * @param novoNomePerfil String
@@ -157,9 +162,9 @@ public class PerfilController {
 	}
 
 	/**
-	 * Método alterarDataInicioPerfilController
+	 * Metodo alterarDataInicioPerfilController
 	 * 
-	 * Método realiza a alteração da data de inicio de um perfil conforme id informado
+	 * Metodo realiza a alteracao da data de inicio de um perfil conforme id informado
 	 * 
 	 * @param idDoPerfil     Integer
 	 * @param novaDataInicio LocalDate
@@ -175,9 +180,9 @@ public class PerfilController {
 		
 	}
 	/**
-	 * Método alterarDataFimPerfilController
+	 * Metodo alterarDataFimPerfilController
 	 * 
-	 * Método realiza a alteração da data fim de validade de um perfil conforme id informado
+	 * Metodo realiza a alteração da data fim de validade de um perfil conforme id informado
 	 * 
 	 * @param idDoPerfil     Integer
 	 * @param novaDataFim LocalDate
@@ -193,9 +198,9 @@ public class PerfilController {
 		
 	}
 	/**
-	 * Método alterarStatusPerfilController
+	 * Metodo alterarStatusPerfilController
 	 * 
-	 * Método realiza a alteração do status de um perfil conforme id informado
+	 * Metodo realiza a alteracao do status de um perfil conforme id informado
 	 * 
 	 * @param idDoPerfil     Integer
 	 * @param statusPerfil boolean
@@ -211,12 +216,12 @@ public class PerfilController {
 	}
 	
 	/**
-	 * Método alterarStatusPerfilController
+	 * Metodo atualizarPerfilController
 	 * 
-	 * Método realiza a alteração do status de um perfil conforme id informado
+	 * Metodo realiza a atualizacao completa de um perfil conforme id informado
 	 * 
 	 * @param idDoPerfil     Integer
-	 * @param statusPerfil boolean
+	 * @param novoPerfil PerfilModel
 	 * @return boolean
 	 */
 	public boolean atualizarPerfilController(Integer idDoPerfil, PerfilModel novoPerfil) {
@@ -225,55 +230,5 @@ public class PerfilController {
 			return dao.atualizarPerfil(idDoPerfil, novoPerfil);
 		} 
 		return false;
-	}
-	
-//	/**
-//	 * Método adicionarPermissaoEmUmPerfil
-//	 * 
-//	 * Método adiciona uma permissão a um perfil, com base nos seus respectivos id's
-//	 * 
-//	 * @param idDoPerfil
-//	 * @param idDaPermissao
-//	 * @return void
-//	 */
-//	public void adicionarPermissaoEmUmPerfil(Integer idDoPerfil, Integer idDaPermissao) {
-//		PermissaoDAO permissaoDAO = new PermissaoDAO();
-//
-//		ArrayList<PermissaoModel> listaDePermissoesDoPerfil = dao.buscarPerfil(idDoPerfil)
-//				.getListaDePermissoesDoPerfil();
-//
-//		listaDePermissoesDoPerfil.add(permissaoDAO.buscarPermissao(idDaPermissao));
-//	}
-//
-//	
-//	/**
-//	 * Método deletarPermissaoEmUmPerfil
-//	 * 
-//	 * Método remove uma permissão de um perfil, com base nos seus respectivos id's
-//	 * 
-//	 * @param idDoPerfil
-//	 * @param idDaPermissao
-//	 * @return void
-//	 */
-//	public void deletarPermissaoEmUmPerfil(Integer idDoPerfil, Integer idDaPermissao) {
-//		PermissaoDAO permissaoDAO = new PermissaoDAO();
-//
-//		ArrayList<PermissaoModel> listaDePermissoesDoPerfil = dao.buscarPerfil(idDoPerfil)
-//				.getListaDePermissoesDoPerfil();
-//
-//		listaDePermissoesDoPerfil.remove(permissaoDAO.buscarPermissao(idDaPermissao));
-//	}
-//
-//	/**
-//	 * Método listarPermissoesDeUmPerfil
-//	 * 
-//	 * Método retorna uma lista de permissões atribuídas a um perfil
-//	 * 
-//	 * @param idDoPerfil
-//	 * @return ArrayList<PermissaoModel>
-//	 */
-//	public ArrayList<PermissaoModel> listarPermissoesDeUmPerfil(Integer idDoPerfil) {
-//		return dao.buscarPerfil(idDoPerfil).getListaDePermissoesDoPerfil();
-//	}
-	
+	}	
 }

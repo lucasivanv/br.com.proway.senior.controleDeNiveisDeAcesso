@@ -1,6 +1,5 @@
 package model.interfaces;
 
-import model.acesso.PermissaoModel;
 import model.acesso.UsuarioModel;
 
 /**

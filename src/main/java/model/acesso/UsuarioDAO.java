@@ -12,7 +12,7 @@ import model.interfaces.InterfaceUsuarioDAO;
  * Classe UsuarioDAO
  * 
  * Classe que implementa a interface que se relaciona com o banco de dados de
- * usuarios
+ * usuarios.
  * 
  * @author Sprint 3
  * @author David Willian, david.oliveira@senior.com.br
@@ -23,7 +23,7 @@ import model.interfaces.InterfaceUsuarioDAO;
  * @author Elton Oliveira, elton.oliveira@senior.com.br
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Thiago Barbieri, thiago.barbieri@senior.com.br
- * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
+ * @author Vitor Goncalves, vitor.goncalves@senior.com.br
  * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 
@@ -32,28 +32,18 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	public DBConnection db;
 
 	public ArrayList<UsuarioModel> user = new ArrayList<UsuarioModel>();
-	
-	/**
-	 * Cria usuário novo.
-	 * 
-	 * Recebe objeto e adiciona no ArrayList<Usuario> user da classe UsuarioDAO
-	 * 
-	 * @param UsuarioModel novoUser como parâmetro para o DAO adicionar na lista de
-	 *                     usuarios.
-	 * @return void
-	 */
 		
 	public UsuarioDAO() {
 		db = DBConnection.getInstance();
 	}
 
 	/**
-	 * Método criarUsuario
+	 * Metodo criarUsuario
 	 * 
-	 * Método responsável por inserir um usuário no banco de dados conforme
+	 * Metodo responsavel por inserir um usuario no banco de dados conforme
 	 * atributos associados
 	 * 
-	 * @param hashSenha    String
+	 * @param hashSenha String
 	 * @param loginUsuario String
 	 * @return boolean
 	 * 
@@ -71,9 +61,9 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Método deletarUsuario
+	 * Metodo deletarUsuario
 	 * 
-	 * Método responsável por deletar um usuário existente no banco de dados a
+	 * Metodo responsavel por deletar um usuario existente no banco de dados a
 	 * partir do id informado
 	 * 
 	 * @param idUsuario Integer
@@ -91,15 +81,14 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 	
 	/**
-	 * Método deletarUsuario
+	 * Metodo deletarUsuario
 	 * 
-	 * Método responsável por deletar um usuário existente no banco de dados a
+	 * Metodo responsavel por deletar um usuario existente no banco de dados a
 	 * partir do nome.
 	 * 
-	 * @param idUsuario Integer
+	 * @param login String
 	 * @return boolean
 	 */
-	
 	public boolean deletarUsuarioPorLogin(String login){
 		String deletarUsuarioPorLogin = "DELETE from usuariostabela where login='"+ login +"';";
 		try {
@@ -112,7 +101,7 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Atualiza um usuário no banco de dados.
+	 * Atualiza um usuario no banco de dados.
 	 * 
 	 * @param idUsuario Integer
 	 * @param usuario   UsuarioModel
@@ -131,10 +120,10 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	}
 
 	/**
-	 * Busca um usuário no banco de dados a partir de seu idUsuario
+	 * Busca um usuario no banco de dados a partir de seu idUsuario
 	 * 
-	 * @param idUsuario
-	 * @return o usuário caso true / null caso exception
+	 * @param idUsuario Integer
+	 * @return UsuarioModel
 	 */
 	public UsuarioModel buscarUsuario(Integer idUsuario) {
 		ArrayList<String> resultado = new ArrayList<String>();
@@ -147,6 +136,8 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 				for (int i = 1; i <= totalColunas; i++) {
 					resultado.add(rs.getString(i));
 				}
+			} else {
+				return null;
 			}
 			return new UsuarioModel(Integer.parseInt(resultado.get(0)), resultado.get(1), resultado.get(2));
 		} catch (SQLException e) {
@@ -157,15 +148,15 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 	
 	
 	/**
-	 * M�todo buscarPermissao
+	 * Metodo buscarUsuario
 	 * 
-	 * M�todo respons�vel por buscar, atrav�s do nome, uma permiss�o dentro do banco de dados. 
-	 * Se a permissao existe, retorna a mesma. Se n�o, retorna nulo.
+	 * Metodo responsavel por buscar, atraves do nome, um usuario dentro do banco de dados. 
+	 * Se o usuario existe, retorna o mesmo. Se nao, retorna nulo.
 	 * 
-	 * @param nomeDaPermissao String
-	 * @return PermissaoModel
+	 * @param login String
+	 * @return UsuarioModel
 	 */
-	public UsuarioModel buscarPorLoginUsuario(String login) {
+	public UsuarioModel buscarUsuario(String login) {
 		ArrayList<String> resultado = new ArrayList<String>();
 		String buscarUsuario = "SELECT * from usuariostabela where login='"+ login+"';";
 		try {
@@ -176,26 +167,24 @@ public class UsuarioDAO implements InterfaceUsuarioDAO<UsuarioModel> {
 				for (int i = 1; i <= totalColunas; i ++) {
 					resultado.add(rs.getString(i));
 				}
+			} else {
+				return null;
 			}
 			if(!resultado.isEmpty()) {
 				return new UsuarioModel(Integer.parseInt(resultado.get(0)), resultado.get(1), resultado.get(2));
 			} else {
 				return null;
 			}
-			
 		} catch(SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	
-
 	/**
-	 * Lista todos os usuários do banco, retornando seus dados.
+	 * Lista todos os usuarios cadastrados no banco, retornando seus dados.
 	 * 
-	 * 
-	 * @return
+	 * @return ArrayList<UsuarioModel>
 	 */
 	public ArrayList<UsuarioModel> buscarTodosUsuarios() {
 		ArrayList<UsuarioModel> resultado = new ArrayList<UsuarioModel>();
