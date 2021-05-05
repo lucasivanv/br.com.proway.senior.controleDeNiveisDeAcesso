@@ -39,8 +39,9 @@ public class PerfilDAOTest {
 			ResultSet rs = perfilDAO.db.executeQuery("select * from perfilTabela");
 			if(rs.next()) {
 				assertEquals("Recursos Humanos", rs.getString(2));
+			} else {
+				fail("Banco não acessado");
 			}
-			
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
@@ -62,6 +63,8 @@ public class PerfilDAOTest {
 				assertEquals(LocalDate.of(2000, 05, 03).toString(), rs.getString(3));
 				assertEquals(LocalDate.of(2000, 05, 03).toString(), rs.getString(4));
 				assertEquals("f", rs.getString(5));
+			} else {
+				fail("Banco não acessado");
 			}
 			
 		} catch (SQLException e) {
@@ -82,14 +85,18 @@ public class PerfilDAOTest {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idPerfil) from perfilTabela");
 			if(rs.next()) {
 				i = rs.getInt(1);
+			} else {
+				fail("Banco não acessado");
 			}
 			perfilDAO.deletarPerfil(i);
 			
 			rs = perfilDAO.db.executeQuery("select * from perfilTabela");	
-			rs.next();
-			
-			assertTrue(Integer.parseInt(rs.getString(1)) < i);		
-			assertEquals(rs.getString(2), "Recursos Humanos");	
+			if(rs.next()) {
+				assertTrue(Integer.parseInt(rs.getString("idperfil")) < i);		
+				assertEquals(rs.getString(2), "Recursos Humanos");	
+			} else {
+				fail("Banco não acessado");
+			}
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
@@ -110,6 +117,8 @@ public class PerfilDAOTest {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
 			if(rs.next()) {
 				i = rs.getInt(1);
+			} else {
+				fail("Banco não acessado");
 			}
 			perfilDAO.atualizarPerfil(i, perfilAtualizado);
 			assertEquals(perfilDAO.buscarPerfil(i).getNomeDoPerfil(), "RH");
@@ -132,6 +141,8 @@ public class PerfilDAOTest {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
 			if(rs.next()) {
 				i = rs.getInt(1);
+			} else {
+				fail("Banco não acessado");
 			}
 			PerfilModel pm = perfilDAO.buscarPerfil(i);
 			
@@ -153,10 +164,11 @@ public class PerfilDAOTest {
 		try {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
 			if(rs.next()) {
+				PerfilModel pm = perfilDAO.buscarPerfil(perfil.getNomeDoPerfil());
+				assertTrue(perfil.getNomeDoPerfil().equals(pm.getNomeDoPerfil()));		
+			} else {
+				fail("Banco não acessado");
 			}
-			PerfilModel pm = perfilDAO.buscarPerfil(perfil.getNomeDoPerfil());
-			
-			assertTrue(perfil.getNomeDoPerfil().equals(pm.getNomeDoPerfil()));		
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
@@ -177,11 +189,11 @@ public class PerfilDAOTest {
 		try {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
 			if(rs.next()) {
+				ArrayList<PerfilModel> pmLista = perfilDAO.buscarPerfil(false);
+				assertEquals(pmLista.size(), 3);
+			} else {
+				fail("Banco não acessado");
 			}
-			ArrayList<PerfilModel> pmLista = perfilDAO.buscarPerfil(false);
-			
-			assertEquals(pmLista.size(), 3);
-			
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
@@ -201,10 +213,12 @@ public class PerfilDAOTest {
 		try {
 			ResultSet rs = perfilDAO.db.executeQuery("select max(idperfil) from perfilTabela");
 			if(rs.next()) {
+				ArrayList<PerfilModel> pmLista = perfilDAO.buscarTodosOsPerfis();
+				assertEquals(pmLista.size(), 5);
+			} else {
+				fail("Banco não acessado");
 			}
-			ArrayList<PerfilModel> pmLista = perfilDAO.buscarTodosOsPerfis();
 			
-			assertEquals(pmLista.size(), 5);
 			
 		} catch (SQLException e) {
 			fail("Não encontrado");

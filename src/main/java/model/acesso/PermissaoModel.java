@@ -3,7 +3,7 @@ package model.acesso;
 /**
  * Classe PermissaoModel
  * 
- * Recebe os atributos necessários para instanciar uma permissão, que será
+ * Recebe os atributos necessarios para instanciar uma permissao, que sera
  * vinculada a um perfil.
  * 
  * @author Sprint 3
@@ -14,7 +14,7 @@ package model.acesso;
  * @author Elton Oliveira, elton.oliveira@senior.com.br
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Thiago Barbieri, thiago.barbieri@senior.com.br
- * @author Vitor Gonçalves, vitor.goncalves@senior.com.br
+ * @author Vitor Goncalves, vitor.goncalves@senior.com.br
  * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 public class PermissaoModel {
@@ -46,7 +46,7 @@ public class PermissaoModel {
 	/**
 	 * Construtor da classe PermissaoModel
 	 * 
-	 * Não engloba o atributo idDaPermissao
+	 * Nao engloba o atributo idDaPermissao
 	 * 
 	 * @param nomeDaPermissao
 	 */

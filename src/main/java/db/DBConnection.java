@@ -9,13 +9,13 @@ import java.sql.Statement;
 /**
  * Classe DBConnection
  * 
- * Classe respons�vel pela conex�o com o banco de dados (DB)
+ * Classe responsavel pela conexao com o banco de dados (DB)
  * 
  * @author Sprint 4
  * @author Elton Oliveira, elton.oliveira@senior.com.br
  * @author Lucas Ivan, lucas.ivan@senior.com.br
  * @author Thiago Barbieri, thiago.barbieri@senior.com.br
- * @author Vitor Gon�alves, vitor.goncalves@senior.com.br
+ * @author Vitor Goncalves, vitor.goncalves@senior.com.br
  * @author Vitor Gehrke, vitor.gehrke@senior.com.br
  */
 public class DBConnection {
@@ -32,6 +32,11 @@ public class DBConnection {
 		this.connect();
 	}
 
+	/**
+	 * Implementacao do singleton da classe.
+	 * Retorna a instancia unica da conexao com o banco de dados
+	 * @return DBConnection
+	 */
 	public static DBConnection getInstance() {
 		if (dbConnection == null) {
 			dbConnection = new DBConnection();
@@ -40,7 +45,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * M�todo para conectar com o DB a partir dos atributos necess�rios (url, user e
+	 * Metodo para conectar com o DB a partir dos atributos necessarios (url, user e
 	 * password)
 	 * 
 	 * @return void
@@ -55,7 +60,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * M�todo que executa uma query
+	 * Metodo que executa uma query
 	 * 
 	 * @param query String
 	 * @throws SQLException
@@ -70,7 +75,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * M�todo que executa uma query
+	 * Metodo que executa uma query
 	 * 
 	 * @param query String
 	 * @throws SQLException
@@ -87,7 +92,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * M�todo que retorna a versao do DB
+	 * Metodo que retorna a versao do DB
 	 * 
 	 * @return String
 	 */
@@ -107,7 +112,7 @@ public class DBConnection {
 	}
 
 	/**
-	 * M�todo que limpa uma tabela no DB
+	 * Metodo que limpa uma tabela no DB
 	 * 
 	 * @param nomeTabela String
 	 * @return void

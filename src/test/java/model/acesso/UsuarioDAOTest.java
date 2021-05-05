@@ -44,6 +44,8 @@ public class UsuarioDAOTest {
 			ResultSet rs = usuarioDAO.db.executeQuery("select * from usuariostabela");
 			if(rs.next()) {
 				assertEquals("qweqweqweqweqwe", "Ricardo", rs.getString(3));
+			} else {
+				fail("Banco não acessado");
 			}
 			
 		} catch (SQLException e) {
@@ -57,13 +59,15 @@ public class UsuarioDAOTest {
 		usuarioDAO.db.limparDB("usuariostabela");
 		usuarioDAO.criarUsuario("Remover", "Elton");
 		usuarioDAO.criarUsuario("Remover2", "Vitor");
-		int i = 0;
 		try {
 			usuarioDAO.deletarUsuarioPorLogin("Elton");
 			
 			ResultSet rs = usuarioDAO.db.executeQuery("select * from usuariostabela");	
-			rs.next();
-			assertEquals(rs.getString(3), "Vitor");	
+			if(rs.next()) {
+				assertEquals(rs.getString(3), "Vitor");	
+			} else {
+				fail("Banco não acessado");
+			}
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
@@ -76,7 +80,7 @@ public class UsuarioDAOTest {
 		usuarioDAO.db.limparDB("usuariostabela");
 		usuarioDAO.criarUsuario("irioweuriowueriouwer", "Joao");;
 		UsuarioModel pmteste = new UsuarioModel("irioweuriowueriouwer", "Joao");
-		UsuarioModel pm = usuarioDAO.buscarPorLoginUsuario("Joao");
+		UsuarioModel pm = usuarioDAO.buscarUsuario("Joao");
 		assertTrue(pmteste.getLoginDoUsuario().equals(pm.getLoginDoUsuario()));		
 	 
 	}
@@ -93,7 +97,6 @@ public class UsuarioDAOTest {
 		UsuarioModel umteste3 = new UsuarioModel("Mover", "José");
 		ArrayList<UsuarioModel> listaUMteste = new ArrayList<UsuarioModel>();
 		listaUMteste.addAll(Arrays.asList(umteste1, umteste2, umteste3));
-		int i = 0;
 		
 		ArrayList<UsuarioModel> listaUM = usuarioDAO.buscarTodosUsuarios();
 		
@@ -120,43 +123,5 @@ public class UsuarioDAOTest {
 		} catch (SQLException e) {
 			fail("Não encontrado");
 		}
-	}
-	
-	
-	
-	//
-	
-	
-	@Test
-	public void testeCriacaoUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		usuarioDAO.criarUsuario("uiluiluiuio", "Teste2");
-	}
-
-	@Test
-	public void testeDeletarUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		usuarioDAO.deletarUsuario(1);
-	}
-	
-	@Test
-	public void testeAtualizarUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		UsuarioModel um = new UsuarioModel("CXFSDSds", "Elton"); //String loginDoUsuario, String hashSenhaDoUsuario
-		usuarioDAO.atualizarUsuario(2, um);
-	}
-	
-	@Test
-	public void testeBuscarUsuario() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		UsuarioModel usuario = usuarioDAO.buscarUsuario(5);
-		System.out.println(usuario.toString());
-	}
-
-	@Test
-	public void testeBuscarTodosUsuarios() {
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		ArrayList<UsuarioModel> todosUsuarios = usuarioDAO.buscarTodosUsuarios();
-		System.out.println(todosUsuarios.toString());
 	}
 }

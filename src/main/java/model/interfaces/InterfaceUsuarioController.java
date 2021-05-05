@@ -1,5 +1,7 @@
 package model.interfaces;
 
+import model.acesso.UsuarioModel;
+
 /**
  * @author Sprint 3
  * @author David Willian, david.oliveira@senior.com.br

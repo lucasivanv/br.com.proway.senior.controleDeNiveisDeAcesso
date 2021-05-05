@@ -8,10 +8,17 @@ import model.interfaces.InterfaceHashSenha;
 /**
  * Classe HashSenha
  * 
- * Classe responsável pela conversao da senha em hashSenha
+ * Classe responsavel pela conversao da senha em hashSenha
  * 
- * @author Sprint 3
+ * Sprint 3
  * @author Leonardo Pereira, leonardo.pereira@senior.com.br
+ * 
+ * Sprint 4
+ * @author Vitor Nathan Goncalves, vitor.goncalves@senior.com.br
+ * @author Elton Francisco de Oliveira, elton.oliveira@senior.com.br
+ * @author Vitor Andre Gehrke, vitor.gehrke@senior.com.br
+ * @author Thiago Barbieri, thiago.barbieri@senior.com.br
+ * @author Lucas Ivan, lucas.ivan@senior.com.br
  */
 
 public class HashSenha {
@@ -19,7 +26,7 @@ public class HashSenha {
 	/**
 	 * Criptografia para sennha.
 	 * 
-	 * Neste método esta sendo utilizado uma API do java "BigInteger" para gerar um
+	 * Neste metodo esta sendo utilizado uma API do java "BigInteger" para gerar um
 	 * algoritmo para realizar a HASH da senha utilizando criptografia SHA-512.
 	 *
 	 * @param String senha

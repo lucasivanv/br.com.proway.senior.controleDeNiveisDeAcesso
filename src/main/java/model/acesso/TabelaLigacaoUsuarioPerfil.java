@@ -64,4 +64,14 @@ public class TabelaLigacaoUsuarioPerfil {
 			return false;
 		}
 	}
+	
+	public boolean removerLigacao(Integer idPerfil, Integer idUsuario) {
+		try {
+			db.executeUpdate("delete from perfilligacaotabela where idperfil = "+ idPerfil +" and idusuario= "+ idUsuario);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

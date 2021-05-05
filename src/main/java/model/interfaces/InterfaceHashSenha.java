@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Sprint 3
- * @author Leonardo Pereira, leonardo.pereira@senior.com.br *
+ * @author Leonardo Pereira, leonardo.pereira@senior.com.br
  */
 public interface InterfaceHashSenha {
 
